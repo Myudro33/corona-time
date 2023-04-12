@@ -4,11 +4,11 @@
     </label>
     <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="text" name="username"
         id="username" placeholder="Enter unique username or email">
-    <label for="username" class="text-[#010414] font-bold text-base mt-6">
+    <label for="password" class="text-[#010414] font-bold text-base mt-6">
         Password
     </label>
-    <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="text" name="username"
-        id="username" placeholder="Fill in password">
+    <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="password" name="password"
+        id="password" placeholder="Fill in password">
     <div class="w-full flex justify-between items-center mt-6">
         <label for="checkbox" class="flex items-center text-[#010414] text-sm font-semibold">
             <input class="w-5 h-5 m-1 xs:text-sm md:text-base" type="checkbox" name="remember" id="remember">
