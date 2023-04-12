@@ -1,4 +1,4 @@
-<form class="xs:w-full md:w-[392px] flex flex-col mt-6" action="#" method="post">
+<form class="xs:w-full xs:h-[90vh] md:h-auto md:w-[392px] flex flex-col my-6" action="#" method="post">
     <label for="username" class="text-[#010414] font-bold text-base">
         @lang('register.username')
     </label>
