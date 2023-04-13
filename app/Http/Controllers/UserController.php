@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -28,8 +30,13 @@ class UserController extends Controller
     {
         return view('pages.register');
     }
-    public function store(UserStoreRequest $request)
+    public function store(UserStoreRequest $request): RedirectResponse
     {
-    ddd($request->all());
+        User::create([
+            'username' => $request->validated()['username'],
+            'email' => $request->validated()['email'],
+            'password' => bcrypt($request->validated()['password']),
+        ]);
+        return redirect('/login');
     }
 }
