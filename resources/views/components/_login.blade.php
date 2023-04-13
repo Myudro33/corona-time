@@ -16,8 +16,7 @@
         </label>
         <a class="text-[#2029F3] text-sm font-semibold" href="/forgot-password">@lang('login.forgot_password')</a>
     </div>
-    <button type="submit"
-        class="bg-[#0FBA68] w-full h-14 text-white font-black text-base rounded-lg my-6">@lang('login.log_in')</button>
+    <x-button class="my-6" >@lang('login.log_in')</x-button>
     <div class="w-full flex justify-center">
         <span class="text-[#808189] font-normal">@lang('login.dont_have_account')<a
                 class="text-[#010414] xs:text-sm md:text-base font-bold ml-1"

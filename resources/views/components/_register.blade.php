@@ -20,8 +20,7 @@
     </label>
     <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="password" name="repeat-password"
         id="repeat-password" placeholder="@lang('register.repeat_password_placeholder')">
-    <button type="submit"
-        class="bg-[#0FBA68] w-full h-14 text-white font-black text-base rounded-lg my-6">@lang('register.sign_up')</button>
+    <x-button class="md:mt-6 my-6" >@lang('register.sign_up')</x-button>
     <div class="w-full flex justify-center">
         <span class="text-[#808189] font-normal">@lang('register.already_have_account')<a
                 class="text-[#010414] xs:text-sm md:text-base font-bold ml-1"
