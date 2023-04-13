@@ -11,12 +11,12 @@
         id="password" placeholder="@lang('login.password_placeholder')">
     <div class="w-full flex justify-between items-center mt-6">
         <label for="checkbox" class="flex items-center text-[#010414] text-sm font-semibold">
-            <input class="w-5 h-5 m-1 xs:text-sm md:text-base" type="checkbox" name="remember" id="remember">
+            <input class="w-5 h-5 m-1 xs:text-sm md:text-base accent-[#249E2C]" type="checkbox" name="remember" id="remember">
             @lang('login.remember_device')
         </label>
         <a class="text-[#2029F3] text-sm font-semibold" href="/forgot-password">@lang('login.forgot_password')</a>
     </div>
-    <x-button class="my-6" >@lang('login.log_in')</x-button>
+    <x-button class="md:mt-6 my-6" >@lang('login.log_in')</x-button>
     <div class="w-full flex justify-center">
         <span class="text-[#808189] font-normal">@lang('login.dont_have_account')<a
                 class="text-[#010414] xs:text-sm md:text-base font-bold ml-1"
