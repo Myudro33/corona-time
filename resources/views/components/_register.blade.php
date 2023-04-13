@@ -12,7 +12,7 @@
     <label for="email" class="text-[#010414] font-bold text-base mt-6">
         @lang('register.email')
     </label>
-    <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="email" name="email"
+    <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="text" name="email"
         id="email" placeholder="@lang('register.email_placeholder')">
         @error('email')
         <p class="text-red-500 text-xs" >{{$message}}</p>
