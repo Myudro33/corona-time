@@ -1,4 +1,5 @@
-<form class="xs:w-full xs:h-[90vh] md:h-auto md:w-[392px] flex flex-col my-6" action="#" method="post">
+<form class="xs:w-full xs:h-[90vh] md:h-auto md:w-[392px] flex flex-col my-6" action="{{{ route('register.store') }}}" method="post">
+    @csrf
     <label for="username" class="text-[#010414] font-bold text-base">
         @lang('register.username')
     </label>
@@ -24,12 +25,12 @@
         @error('password')
         <p class="text-red-500 text-xs" >{{$message}}</p>
     @enderror
-        <label for="repeat-password" class="text-[#010414] font-bold text-base mt-6">
+        <label for="repeat_password" class="text-[#010414] font-bold text-base mt-6">
         @lang('register.repeat_password')
     </label>
-    <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="password" name="repeat-password"
-        id="repeat-password" placeholder="@lang('register.repeat_password_placeholder')">
-        @error('repeat-password')
+    <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="password" name="repeat_password"
+        id="repeat_password" placeholder="@lang('register.repeat_password_placeholder')">
+        @error('repeat_password')
         <p class="text-red-500 text-xs" >{{$message}}</p>
     @enderror
         <x-button class="md:mt-6 my-6" >@lang('register.sign_up')</x-button>
