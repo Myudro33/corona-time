@@ -1,7 +1,7 @@
 <?php
 
 return [
-   'welcome'=>'Welcom to Coronatime',
+   'welcome'=>'Welcome to Coronatime',
    'details'=>'Please enter required info to sign up',
    'username'=>'Username',
    'username_placeholder'=>'Enter unique username',
