@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         return view('pages.login');
     }
-    public function auth(UserLoginRequest $request)
+    public function login(UserLoginRequest $request)
     {
         $emailOrUsername = $request->input('username');
         $password = $request->input('password');
@@ -45,7 +45,7 @@ class UserController extends Controller
             return back()->withErrors(['username' => __('login.wrong_username_or_email')]);
         }
     }
-    public function destroy()
+    public function logout()
     {
         auth()->logout();
         return redirect('/');
@@ -57,12 +57,12 @@ class UserController extends Controller
     {
         return view('pages.register');
     }
-    public function store(UserRegisterRequest $request): RedirectResponse
+    public function register(UserRegisterRequest $request): RedirectResponse
     {
         $user = new User();
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->username = $request->validated()->username;
+        $user->email = $request->validated()->email;
+        $user->password = bcrypt($request->validated()->password);
         $user->verification_token = Str::random(40);
         $user->save();
         $mail = new VerifyEmail($user);

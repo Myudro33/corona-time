@@ -1,4 +1,4 @@
-<form class="xs:w-full xs:h-[90vh] md:h-auto md:w-[392px] flex flex-col my-6" action="{{{ route('register.store') }}}" method="post">
+<form class="xs:w-full xs:h-[90vh] md:h-auto md:w-[392px] flex flex-col my-6" action="{{{ route('register') }}}" method="post">
     @csrf
     <label for="username" class="text-[#010414] font-bold text-base">
         @lang('register.username')

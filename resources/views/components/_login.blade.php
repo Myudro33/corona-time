@@ -1,4 +1,4 @@
-<form class="xs:w-full md:w-[392px] flex flex-col mt-6" action="{{{ route('login.auth') }}}" method="post">
+<form class="xs:w-full md:w-[392px] flex flex-col mt-6" action="{{{ route('login') }}}" method="post">
     @csrf
     <label for="username" class="text-[#010414] font-bold text-base">
         @lang('login.username')

@@ -13,9 +13,9 @@ Route::get('/locale/{lang}', [LanguageController::class, 'setLang']);
 Route::controller(UserController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/login', 'view')->name('login.view');
-    Route::post('/login/user', 'auth')->name('login.auth');
+    Route::post('/login/user', 'login')->name('login');
     Route::get('/register', 'create')->name('register.create');
-    Route::post('/register', 'store')->name('register.store');
+    Route::post('/register', 'register')->name('register');
 });
 Route::controller(VerificationController::class)->group(function () {
     Route::get('/verify-email/{token}', 'verifyEmail')->name('verification.verify');
@@ -29,5 +29,5 @@ Route::controller(ResetPasswordController::class)->group(function(){
     Route::get('/password-update/{user}', 'show');
     Route::get('/password-confirmed', 'view');
     Route::post('/password-update/{user}', 'store')->name('password.store');
-    Route::post('/forgot-password', 'update')->name('reset.password');
+    Route::post('/forgot-password', 'update')->name('password.update');
 });
