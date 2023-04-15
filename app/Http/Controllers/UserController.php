@@ -39,10 +39,10 @@ class UserController extends Controller
                     return redirect('/confirmation');
                 }
             } else {
-                return back()->withErrors(['password' => 'Password is incorect']);
+                return back()->withErrors(['password' => __('login.wrong_password')]);
             }
         } else {
-            return back()->withErrors(['username' => "Username or email doesn't exists"]);
+            return back()->withErrors(['username' => __('login.wrong_username_or_email')]);
         }
     }
     public function destroy()

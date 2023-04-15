@@ -11,5 +11,7 @@ return [
     'forgot_password'=>'Forgot password?',
     'log_in'=>"LOG IN",
     'dont_have_account'=>"Don't have an account?",
-    'sign_up'=>'Sign up for free'
+    'sign_up'=>'Sign up for free',
+    'wrong_password'=>'Password is wrong!',
+    'wrong_username_or_email'=>'Username or email is invalid!'
 ];
