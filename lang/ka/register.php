@@ -10,8 +10,8 @@ return [
    'email_placeholder'=>"შეიყვანეთ თქვენი იმეილი",
    'password'=>'პაროლი',
    'password_placeholder'=>'შეიყვანეთ პაროლი',
-   'repeat_password'=>'გაიმეორეთ პაროლი',
-   'repeat_password_placeholder'=>'გაიმეორეთ პაროლი',
+   'confirm_password'=>'გაიმეორეთ პაროლი',
+   'confirm_password_placeholder'=>'გაიმეორეთ პაროლი',
    'sign_up'=>'რეგისტრაცია',
    'already_have_account'=>'უკვე გაქვთ ანგარიში?',
    'log_in'=>'შესვლა'

@@ -10,8 +10,8 @@ return [
    'email_placeholder'=>"Enter your email",
    'password'=>'Password',
    'password_placeholder'=>'Fill in password',
-   'repeat_password'=>'Repeat password',
-   'repeat_password_placeholder'=>'Repeat password',
+   'confirm_password'=>'Confirm password',
+   'confirm_password_placeholder'=>'Confirm password',
    'sign_up'=>'Register',
    'already_have_account'=>'Already have an account?',
    'log_in'=>'Log in'
