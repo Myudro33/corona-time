@@ -49,8 +49,8 @@ return [
     'doesnt_start_with' => 'The :attribute field must not start with one of the following: :values.',
     'email' => ":attribute'ს ველი უნდა იყოს იმეილის ფორმატის.",
     'ends_with' => 'The :attribute field must end with one of the following: :values.',
-    'enum' => 'The selected :attribute is invalid.',
-    'exists' => 'The selected :attribute is invalid.',
+    'enum' => 'მითითებული :attribute არასწორია.',
+    'exists' => 'მითითებული :attribute არასწორია.',
     'file' => 'The :attribute field must be a file.',
     'filled' => 'The :attribute field must have a value.',
     'gt' => [
@@ -66,7 +66,7 @@ return [
         'string' => 'The :attribute field must be greater than or equal to :value characters.',
     ],
     'image' => 'The :attribute field must be an image.',
-    'in' => 'The selected :attribute is invalid.',
+    'in' => 'მითითებული :attribute არასწორია.',
     'in_array' => 'The :attribute field must exist in :other.',
     'integer' => 'The :attribute field must be an integer.',
     'ip' => 'The :attribute field must be a valid IP address.',
@@ -109,7 +109,7 @@ return [
     'missing_with' => 'The :attribute field must be missing when :values is present.',
     'missing_with_all' => 'The :attribute field must be missing when :values are present.',
     'multiple_of' => 'The :attribute field must be a multiple of :value.',
-    'not_in' => 'The selected :attribute is invalid.',
+    'not_in' => 'მითითებული :attribute არასწორია.',
     'not_regex' => 'The :attribute field format is invalid.',
     'numeric' => 'The :attribute field must be a number.',
     'password' => [
