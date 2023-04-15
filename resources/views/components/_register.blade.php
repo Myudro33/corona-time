@@ -25,12 +25,12 @@
         @error('password')
         <p class="text-red-500 text-xs" >{{$message}}</p>
     @enderror
-        <label for="repeat_password" class="text-[#010414] font-bold text-base mt-6">
-        @lang('register.repeat_password')
+        <label for="confirm_password" class="text-[#010414] font-bold text-base mt-6">
+        @lang('register.confirm_password')
     </label>
-    <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="password" name="repeat_password"
-        id="repeat_password" placeholder="@lang('register.repeat_password_placeholder')">
-        @error('repeat_password')
+    <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-1" type="password" name="confirm_password"
+        id="confirm_password" placeholder="@lang('register.confirm_password_placeholder')">
+        @error('confirm_password')
         <p class="text-red-500 text-xs" >{{$message}}</p>
     @enderror
         <x-button class="md:mt-6 my-6" >@lang('register.sign_up')</x-button>
