@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Mail\ResetPassword;
 use App\Models\User;
@@ -30,9 +31,9 @@ class ResetPasswordController extends Controller
      return view('pages.password-update-confirmed');
     }
 
-    public function store(Request $request, User $user)
+    public function store(PasswordResetRequest $request, User $user)
     {
-        $user->password = bcrypt($request->password);
+        $user->password = bcrypt($request->validated()->password);
         $user->verification_token = Str::random(40);
         $user->save();
         return redirect('/password-confirmed');
