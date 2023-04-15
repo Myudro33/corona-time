@@ -8,7 +8,7 @@ use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -26,15 +26,23 @@ class UserController extends Controller
     }
     public function auth(UserAuthRequest $request)
     {
-        if (Auth::attempt($request->validated())) {
-            $user = Auth::user();
-            if ($user['email_verified_at'] != null) {
-                return redirect()->intended('/dashboard');
+        $emailOrUsername = $request->input('username');
+        $password = $request->input('password');
+        $user = User::where('email', $emailOrUsername)
+            ->orWhere('username', $emailOrUsername)
+            ->first();
+        if ($user) {
+            if (Hash::check($password, $user->password)) {
+                if ($user['email_verified_at'] != null) {
+                    return redirect()->intended('/dashboard');
+                } else {
+                    return redirect('/confirmation');
+                }
             } else {
-                return redirect('/confirmation');
+                return back()->withErrors(['password' => 'Password is incorect']);
             }
         } else {
-            return back();
+            return back()->withErrors(['username' => "Username or email doesn't exists"]);
         }
     }
     public function destroy()
