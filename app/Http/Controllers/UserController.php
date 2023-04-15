@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserAuthRequest;
-use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -57,7 +57,7 @@ class UserController extends Controller
     {
         return view('pages.register');
     }
-    public function store(UserStoreRequest $request): RedirectResponse
+    public function store(UserRegisterRequest $request): RedirectResponse
     {
         $user = new User();
         $user->username = $request->username;
