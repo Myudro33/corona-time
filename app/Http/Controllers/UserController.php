@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserAuthRequest;
+use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Mail\VerifyEmail;
 use App\Models\User;
@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         return view('pages.login');
     }
-    public function auth(UserAuthRequest $request)
+    public function auth(UserLoginRequest $request)
     {
         $emailOrUsername = $request->input('username');
         $password = $request->input('password');
