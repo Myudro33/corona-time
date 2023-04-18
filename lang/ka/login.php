@@ -12,6 +12,5 @@ return [
     'log_in'=>"შესვლა",
     'dont_have_account'=>"არ გაქვს აქაუნთი?",
     'sign_up'=>'დარეგისტრირდი უფასოდ',
-    'wrong_password'=>'პაროლი არასწორია!',
-    'wrong_username_or_email'=>'მომხმარებლის სახელი ან იმეილი არასწორია'
+    'wrong_password'=>'პაროლი არასწორია!'
 ];
