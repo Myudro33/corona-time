@@ -27,14 +27,15 @@ class UserController extends Controller
     }
     public function login(UserLoginRequest $request)
     {
+        $rememberDevice = $request->has('remember') ? true : false;
         $emailOrUsername = $request->validated()['username'];
         $password = $request->validated()['password'];
         $user = User::where('email', $emailOrUsername)->orWhere('username', $emailOrUsername)->first();
         if ($user) {
             if (Hash::check($password, $user->password)) {
-                if (Auth::attempt(['username' => $emailOrUsername, 'password' => $password])) {
+                if (Auth::attempt(['username' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
                     return redirect('/dashboard');
-                } elseif (Auth::attempt(['email' => $emailOrUsername, 'password' => $password])) {
+                } elseif (Auth::attempt(['email' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
                     return redirect('/dashboard');
                 }
             } else {
