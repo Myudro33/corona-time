@@ -11,6 +11,7 @@ return [
     'not_in' => 'მითითებული :attribute არასწორია.',
     'required' => ":attribute'ს ველი სავალდებულოა.",
     'same' => ":attribute'ს ველი უნდა ემთხვეოდეს :other'ს ველს.",
+    'unique' => 'ასეთი :attribute უკვე არსებობს',
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

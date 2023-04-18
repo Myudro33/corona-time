@@ -12,6 +12,7 @@ return [
     'not_in' => 'The selected :attribute is invalid.',
     'required' => 'The :attribute field is required.',
     'same' => 'The :attribute field must match :other.',
+    'unique' => 'The :attribute has already been taken.',
 
 
 
