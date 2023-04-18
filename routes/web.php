@@ -11,20 +11,21 @@ Route::get('/locale/{lang}', [LanguageController::class, 'setLang']);
 
 // user
 Route::controller(UserController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/login', 'view')->name('login.view');
-    Route::post('/login/user', 'login')->name('login');
+    Route::get('/login', 'view')->name('login.view')->middleware('guest');
+    Route::post('/login/user', 'login')->name('login')->middleware('verify.api');
     Route::get('/register', 'create')->name('register.create');
     Route::post('/register', 'register')->name('register');
+    Route::get('/dashboard', 'index');
+    Route::post('/logout', 'logout')->name('logout');
 });
 Route::controller(VerificationController::class)->group(function () {
     Route::get('/verify-email/{token}', 'verifyEmail')->name('verification.verify');
     Route::get('/reset-password/{token}', 'ResetPassword')->name('verification.verify');
-    Route::get('/confirmation', 'view');
+    Route::get('/confirmation', 'view')->name('confirmation')->name('verification.notice');
     Route::get('/confirmed', 'show');
 });
 
-Route::controller(ResetPasswordController::class)->group(function(){
+Route::controller(ResetPasswordController::class)->group(function () {
     Route::get('/forgot-password', 'index');
     Route::get('/password-update/{user}', 'show');
     Route::get('/password-confirmed', 'view');

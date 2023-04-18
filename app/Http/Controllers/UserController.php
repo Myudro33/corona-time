@@ -8,6 +8,7 @@ use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -16,7 +17,7 @@ class UserController extends Controller
 {
     public function index(): View
     {
-        return view('/');
+        return view('pages.dashboard');
     }
 
     // login
@@ -26,17 +27,15 @@ class UserController extends Controller
     }
     public function login(UserLoginRequest $request)
     {
-        $emailOrUsername = $request->input('username');
-        $password = $request->input('password');
-        $user = User::where('email', $emailOrUsername)
-            ->orWhere('username', $emailOrUsername)
-            ->first();
+        $emailOrUsername = $request->validated()['username'];
+        $password = $request->validated()['password'];
+        $user = User::where('email', $emailOrUsername)->orWhere('username', $emailOrUsername)->first();
         if ($user) {
             if (Hash::check($password, $user->password)) {
-                if ($user['email_verified_at'] != null) {
-                    return redirect()->intended('/dashboard');
-                } else {
-                    return redirect('/confirmation');
+                if (Auth::attempt(['username' => $emailOrUsername, 'password' => $password])) {
+                    return redirect('/dashboard');
+                } elseif (Auth::attempt(['email' => $emailOrUsername, 'password' => $password])) {
+                    return redirect('/dashboard');
                 }
             } else {
                 return back()->withErrors(['password' => __('login.wrong_password')]);
@@ -48,7 +47,7 @@ class UserController extends Controller
     public function logout()
     {
         auth()->logout();
-        return redirect('/');
+        return redirect('/login');
     }
 
     // register
@@ -60,9 +59,9 @@ class UserController extends Controller
     public function register(UserRegisterRequest $request): RedirectResponse
     {
         $user = new User();
-        $user->username = $request->validated()->username;
-        $user->email = $request->validated()->email;
-        $user->password = bcrypt($request->validated()->password);
+        $user->username = $request->validated()['username'];
+        $user->email = $request->validated()['email'];
+        $user->password = bcrypt($request->validated()['password']);
         $user->verification_token = Str::random(40);
         $user->save();
         $mail = new VerifyEmail($user);
