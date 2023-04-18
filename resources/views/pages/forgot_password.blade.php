@@ -9,9 +9,9 @@
             <div>
                 <h1 class="text-[#010414] font-black xs:text-xl md:text-[25px] xs:my-10 md:my-14  text-center">
                     @lang('reset.heading')</h1>
-                <label class="text-[#010414] font-bold text-base mt-6" for="email">@lang('reset.email')</label>
+                <label class="text-[#010414] font-bold text-base mt-6" for="email">@lang('register.email')</label>
                 <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-2" id="email" name="email" type="email"
-                    placeholder="@lang('reset.email_placeholder')">
+                    placeholder="@lang('register.email_placeholder')">
                     @error('email')
                         <p class="text-red-500 text-xs">
                             {{$message}}
