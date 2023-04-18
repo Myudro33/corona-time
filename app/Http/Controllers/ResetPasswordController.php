@@ -6,8 +6,8 @@ use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Mail\ResetPassword;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
@@ -28,7 +28,7 @@ class ResetPasswordController extends Controller
     }
     public function view()
     {
-     return view('pages.password-update-confirmed');
+        return view('pages.password-update-confirmed');
     }
 
     public function store(PasswordResetRequest $request, User $user)
@@ -43,7 +43,7 @@ class ResetPasswordController extends Controller
         $user = User::where('email', $request->email)->first();
         $mail = new ResetPassword($user);
         $mail->setUser($user);
-        Mail::to($user->email)->send(new ResetPassword($user));
+        Mail::to($user->email)->locale(Session::get('locale'))->send(new ResetPassword($user));
         return redirect('/confirmation');
     }
 }

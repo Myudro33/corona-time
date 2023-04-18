@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -67,7 +68,7 @@ class UserController extends Controller
         $user->save();
         $mail = new VerifyEmail($user);
         $mail->setUser($user);
-        Mail::to($user->email)->send(new VerifyEmail($user));
+        Mail::to($user->email)->locale(Session::get('locale'))->send(new VerifyEmail($user));
 
         return redirect('/confirmation');
     }
