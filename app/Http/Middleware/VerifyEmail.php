@@ -6,6 +6,7 @@ use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 class VerifyEmail
@@ -17,6 +18,7 @@ class VerifyEmail
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $rememberDevice = $request->has('remember') ? true : false;
         $password = $request->password;
         $user = User::where('email', $request->username)
             ->orWhere('username', $request->username)
@@ -29,6 +31,9 @@ class VerifyEmail
             } else {
                 return back()->withErrors(['password' => __('login.wrong_password')]);
             }
+        }
+        if($rememberDevice) {
+            Session::put('SESSION_LIFETIME', 1200);
         }
         return $next($request);
     }
