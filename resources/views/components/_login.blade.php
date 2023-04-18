@@ -9,12 +9,13 @@
         id="username" placeholder="@lang('login.username_placeholder')">
         {!! !$errors->any() ? "" : ($errors->has('username') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
     </div>
-    @error('username')
+    <x-error name="username" />
+    {{-- @error('username')
     <div class="flex items-center">
         <img class="w-5 mx-1" src="/assets/error.png" alt="">  
         <p class="text-red-500 text-xs">{{ $message }}</p>
     </div>
-    @enderror
+    @enderror --}}
     <label for="password" class="text-[#010414] font-bold text-base mt-6">
         @lang('login.password')
     </label>
@@ -23,12 +24,7 @@
         id="password" placeholder="@lang('login.password_placeholder')">
         {!! !$errors->any() ? "" : ($errors->has('password') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
     </div>
-    @error('password')
-    <div class="flex items-center">
-        <img class="w-5 mx-1" src="/assets/error.png" alt="">  
-        <p class="text-red-500 text-xs">{{ $message }}</p>
-    </div>
-    @enderror
+    <x-error name="password" />
     <div class="w-full flex justify-between items-center mt-6">
         <label for="checkbox" class="flex items-center text-[#010414] text-sm font-semibold">
             <input class="w-5 h-5 m-1 xs:text-sm md:text-base accent-[#249E2C]" type="checkbox" name="remember"

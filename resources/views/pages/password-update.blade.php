@@ -20,12 +20,7 @@
                                 id="password" placeholder="@lang('register.password_placeholder')">
                                 {!! !$errors->any() ? "" : ($errors->has('password') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
                             </div>
-                                @error('password')
-                                <div class="flex items-center">
-                                    <img class="w-5 mx-1" src="/assets/error.png" alt="">  
-                                    <p class="text-red-500 text-xs">{{ $message }}</p>
-                                </div>
-                            @enderror
+                            <x-error name="password" />
                             <label class="text-[#010414] font-bold text-base" for="confirm_password">
                                 @lang('reset.confirm_password')
                             </label>
@@ -34,12 +29,8 @@
                                 id="confirm_password" placeholder="@lang('register.confirm_password_placeholder')">
                                 {!! !$errors->any() ? "" : ($errors->has('confirm_password') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
                             </div>
-                                @error('confirm_password')
-                                <div class="flex items-center">
-                                    <img class="w-5 mx-1" src="/assets/error.png" alt="">  
-                                    <p class="text-red-500 text-xs">{{ $message }}</p>
-                                </div>
-                            @enderror
+                            <x-error name="confirm_password" />
+
                     </div>
                     <x-button class="md:mt-14" >@lang('reset.save')</x-button>
             </form>

@@ -15,12 +15,7 @@
                     id="email" placeholder="@lang('register.email_placeholder')">
                     {!! !$errors->any() ? "" : ($errors->has('email') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
                 </div>
-                    @error('email')
-                    <div class="flex items-center">
-                        <img class="w-5 mx-1" src="/assets/error.png" alt="">  
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    </div>
-                @enderror
+                <x-error name="email" />
             </div>
             <x-button class="md:mt-14" >@lang('reset.sign_up')</x-button>
         </form>

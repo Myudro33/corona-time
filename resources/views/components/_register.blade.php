@@ -8,12 +8,7 @@
         id="username" placeholder="@lang('register.username_placeholder')">
         {!! !$errors->any() ? "" : ($errors->has('username') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
     </div>
-    @error('username')
-    <div class="flex items-center">
-        <img class="w-5 mx-1" src="/assets/error.png" alt="">  
-        <p class="text-red-500 text-xs">{{ $message }}</p>
-    </div>
-    @enderror
+    <x-error name="username" />
         <p class="text-[#808189] text-sm font-normal">@lang('register.username_requirement')</p>
     <label for="email" class="text-[#010414] font-bold text-base mt-6">
         @lang('register.email')
@@ -23,12 +18,7 @@
         id="email" placeholder="@lang('register.email_placeholder')">
         {!! !$errors->any() ? "" : ($errors->has('email') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
     </div>
-        @error('email')
-        <div class="flex items-center">
-            <img class="w-5 mx-1" src="/assets/error.png" alt="">  
-            <p class="text-red-500 text-xs">{{ $message }}</p>
-        </div>
-    @enderror
+    <x-error name="email" />
         <label for="password" class="text-[#010414] font-bold text-base mt-6">
         @lang('register.password')
     </label>
@@ -37,12 +27,7 @@
         id="password" placeholder="@lang('register.password_placeholder')">
         {!! !$errors->any() ? "" : ($errors->has('password') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
     </div>
-        @error('password')
-        <div class="flex items-center">
-            <img class="w-5 mx-1" src="/assets/error.png" alt="">  
-            <p class="text-red-500 text-xs">{{ $message }}</p>
-        </div>
-    @enderror
+    <x-error name="password" />
         <label for="confirm_password" class="text-[#010414] font-bold text-base mt-6">
         @lang('register.confirm_password')
     </label>
@@ -51,12 +36,7 @@
         id="confirm_password" placeholder="@lang('register.confirm_password_placeholder')">
         {!! !$errors->any() ? "" : ($errors->has('confirm_password') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
     </div>
-        @error('confirm_password')
-        <div class="flex items-center">
-            <img class="w-5 mx-1" src="/assets/error.png" alt="">  
-            <p class="text-red-500 text-xs">{{ $message }}</p>
-        </div>
-    @enderror
+    <x-error name="confirm_password" />
         <x-button class="md:mt-6 my-6" >@lang('register.sign_up')</x-button>
     <div class="w-full flex justify-center">
         <span class="text-[#808189] font-normal">@lang('register.already_have_account')<a
