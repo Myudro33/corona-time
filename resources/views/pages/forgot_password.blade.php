@@ -10,13 +10,17 @@
                 <h1 class="text-[#010414] font-black xs:text-xl md:text-[25px] xs:my-10 md:my-14  text-center">
                     @lang('reset.heading')</h1>
                 <label class="text-[#010414] font-bold text-base mt-6" for="email">@lang('register.email')</label>
-                <input class="w-full h-14 pl-6 py-4 border border-[#E6E6E7] rounded-lg my-2" id="email" name="email" type="email"
-                    placeholder="@lang('register.email_placeholder')">
+                <div class="relative">
+                    <input class="w-full h-14 pl-6 py-4 border rounded-lg my-1 focus:outline-[#2029F3] focus:shadow-bd {{!$errors->any() ? "border-[#E6E6E7]" : ($errors->has('email') ? "border-error" : "border-success")}}" type="text" name="email"
+                    id="email" placeholder="@lang('register.email_placeholder')">
+                    {!! !$errors->any() ? "" : ($errors->has('email') ? "" : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />")!!}
+                </div>
                     @error('email')
-                        <p class="text-red-500 text-xs">
-                            {{$message}}
-                        </p>
-                    @enderror
+                    <div class="flex items-center">
+                        <img class="w-5 mx-1" src="/assets/error.png" alt="">  
+                        <p class="text-red-500 text-xs">{{ $message }}</p>
+                    </div>
+                @enderror
             </div>
             <x-button class="md:mt-14" >@lang('reset.sign_up')</x-button>
         </form>

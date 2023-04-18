@@ -11,6 +11,13 @@ module.exports = {
         'xs': '375px',
         // => @media (min-width: 375px) { ... }
       },
+      boxShadow: {
+        'bd': '-3px 3px 0px #DBE8FB, -3px -3px 0px #DBE8FB, 3px -3px 0px #DBE8FB, 3px 3px 0px #DBE8FB, 3px 3px 0px #DBE8FB;',
+      },
+      borderColor:{
+        'error': '#CC1E1E',
+        'success': '#249E2C'
+      }
     },
   },
   plugins: [],
