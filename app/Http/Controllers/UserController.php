@@ -38,6 +38,8 @@ class UserController extends Controller
                     return redirect('/dashboard');
                 } elseif (Auth::attempt(['email' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
                     return redirect('/dashboard');
+                } else {
+                    return back()->withErrors(['password' => __('login.wrong_password')]);
                 }
             } else {
                 return back()->withErrors(['password' => __('login.wrong_password')]);
