@@ -69,7 +69,6 @@ class AuthController extends Controller
         $user->verification_token = Str::random(40);
         $user->save();
         $mail = new VerifyEmail($user);
-        $mail->setUser($user);
         Mail::to($user->email)->locale(Session::get('locale'))->send(new VerifyEmail($user));
 
         return redirect('/confirmation');

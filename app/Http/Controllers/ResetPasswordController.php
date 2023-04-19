@@ -18,7 +18,7 @@ class ResetPasswordController extends Controller
     }
     public function show(User $user)
     {
-        if ($user->verification_token == 'reset-verified') {
+        if ($user->verification_token == null) {
             return view('pages.password-update', [
                 'user' => $user,
             ]);
@@ -42,7 +42,6 @@ class ResetPasswordController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         $mail = new ResetPassword($user);
-        $mail->setUser($user);
         Mail::to($user->email)->locale(Session::get('locale'))->send(new ResetPassword($user));
         return redirect('/confirmation');
     }
