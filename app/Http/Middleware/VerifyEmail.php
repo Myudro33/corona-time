@@ -25,7 +25,7 @@ class VerifyEmail
             ->first();
         if ($user) {
             if (Hash::check($password, $user->password)) {
-                if ($user->email_verified_at === null) {
+                if (!$user->email_verified_at) {
                     return redirect('/confirmation');
                 }
             } else {
