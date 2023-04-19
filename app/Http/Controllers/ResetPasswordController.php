@@ -33,7 +33,7 @@ class ResetPasswordController extends Controller
 
     public function store(PasswordResetRequest $request, User $user)
     {
-        $user->password = bcrypt($request->validated()->password);
+        $user->password = bcrypt($request->validated()['password']);
         $user->verification_token = Str::random(40);
         $user->save();
         return redirect('/password-confirmed');
