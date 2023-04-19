@@ -3,7 +3,7 @@
     <div class="flex flex-col md:items-center w-full h-screen xs:py-6 xs:px-4 md:py-14">
         <x-language-switch class="md:left-10" />
         <img class="w-44 h-11" src="/assets/logo.png" alt="logo">
-        <form class="xs:h-screen xs:flex xs:flex-col xs:justify-between md:w-[392px] md:h-auto md:mt-36" action="{{{ route('password.update') }}}"
+        <form class="xs:h-screen xs:flex xs:flex-col xs:justify-between md:w-[392px] md:h-auto md:mt-36" action="{{{ route('password.email') }}}"
             method="post">
            @csrf
             <div>

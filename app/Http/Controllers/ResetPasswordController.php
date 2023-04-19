@@ -31,17 +31,16 @@ class ResetPasswordController extends Controller
         return view('pages.password-update-confirmed');
     }
 
-    public function store(PasswordResetRequest $request, User $user)
+    public function reset_password(PasswordResetRequest $request, User $user)
     {
         $user->password = bcrypt($request->validated()['password']);
         $user->verification_token = Str::random(40);
         $user->save();
         return redirect('/password-confirmed');
     }
-    public function update(PasswordUpdateRequest $request)
+    public function send_reset_password_mail(PasswordUpdateRequest $request)
     {
         $user = User::where('email', $request->email)->first();
-        $mail = new ResetPassword($user);
         Mail::to($user->email)->locale(Session::get('locale'))->send(new ResetPassword($user));
         return redirect('/confirmation');
     }
