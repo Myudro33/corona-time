@@ -12,11 +12,6 @@ class VerifyEmail extends Mailable
     use SerializesModels;
 
     public $user;
-
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
     /**
      * Create a new message instance.
      */
