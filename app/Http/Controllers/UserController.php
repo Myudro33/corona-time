@@ -35,9 +35,9 @@ class UserController extends Controller
         if ($user) {
             if (Hash::check($password, $user->password)) {
                 if (Auth::attempt(['username' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
-                    return redirect('/dashboard');
+                    return redirect('/');
                 } elseif (Auth::attempt(['email' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
-                    return redirect('/dashboard');
+                    return redirect('/');
                 } else {
                     return back()->withErrors(['password' => __('login.wrong_password')]);
                 }

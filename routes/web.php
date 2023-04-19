@@ -11,12 +11,12 @@ Route::get('/locale/{lang}', [LanguageController::class, 'setLang']);
 
 // user
 Route::controller(UserController::class)->group(function () {
+    Route::get('/', 'index')->middleware('auth')->name('dashboard');
     Route::get('/login', 'view')->name('login.view')->middleware('guest');
     Route::post('/login/user', 'login')->name('login')->middleware('verify.api');
     Route::get('/register', 'create')->name('register.create');
     Route::post('/register', 'register')->name('register');
-    Route::get('/dashboard', 'index');
-    Route::post('/logout', 'logout')->name('logout');
+    Route::post('/logout', 'logout')->name('logout')->middleware('auth');
 });
 Route::controller(VerificationController::class)->group(function () {
     Route::get('/verify-email/{token}', 'verifyEmail')->name('verification.verify');
