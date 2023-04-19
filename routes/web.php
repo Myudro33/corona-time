@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/locale/{lang}', [LanguageController::class, 'setLang']);
 
 // user
-Route::controller(UserController::class)->group(function () {
+Route::controller(AuthController::class)->group(function () {
     Route::get('/', 'index')->middleware('auth')->name('dashboard');
     Route::get('/login', 'view')->name('login.view')->middleware('guest');
     Route::post('/login/user', 'login')->name('login')->middleware('verify.api');

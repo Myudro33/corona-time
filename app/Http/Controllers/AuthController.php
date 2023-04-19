@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
-class UserController extends Controller
+class AuthController extends Controller
 {
     public function index(): View
     {
