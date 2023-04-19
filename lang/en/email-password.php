@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title'=>'Recover password',
-    'paragraph'=>'click this button to recover a password',
-    'button'=>'RECOVER PASSWORD'
+    'password_email_body_title'=>'Recover password',
+    'password_email_body_paragraph'=>'click this button to recover a password',
+    'password_email_body_button'=>'RECOVER PASSWORD'
 ];

@@ -9,11 +9,11 @@
     <div class="div"
         style="padding: 20px; display: flex; flex-direction: column; align-items: center;justify-content: center">
         <img src="https://i.ibb.co/T8gsJmy/landing.png" alt="img">
-        <h1 style="font-size: 25px;font-weight: 900; margin: 16px 0px; font-family: 'Inter', sans-serif;">{{__('email-confirm.title')}}</h1>
-        <p style="font-size: 16px;font-weight: 400; margin:16px 0px;font-family: 'Inter', sans-serif;">{{__('email-confirm.paragraph')}}</p>
+        <h1 style="font-size: 25px;font-weight: 900; margin: 16px 0px; font-family: 'Inter', sans-serif;">{{__('email-confirm.email_body_title')}}</h1>
+        <p style="font-size: 16px;font-weight: 400; margin:16px 0px;font-family: 'Inter', sans-serif;">{{__('email-confirm.email_body_paragraph')}}</p>
         <a style="background-color: #0FBA68;color: white; border-radius: 8px; display:flex;justify-content: center;align-items:center; font-weight: 900; margin-top: 40px;text-decoration:none;font-family: 'Inter', sans-serif;"
             href="http://localhost:8000/verify-email/{{ $user->verification_token }}">
-            {{__('email-confirm.button')}}
+            {{__('email-confirm.email_body_button')}}
         </a>
     </div>
 </body>
