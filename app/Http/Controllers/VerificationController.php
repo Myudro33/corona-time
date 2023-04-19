@@ -38,12 +38,9 @@ class VerificationController extends Controller
     public function ResetPassword(Request $request, $token)
     {
         // Find the user with the given token
-        $user = User::where('verification_token', $token)->first();
+        $user = User::where('verification_token', $token)->firstOrFail();
         // If the user doesn't exist, return an error
-        if (!$user) {
-            return abort(404, 'User Not Found');
-        }
-        $user->verification_token = 'reset-verified';
+        $user->verification_token = null;
         $user->save();
         // Redirect the user to the home page or wherever you want
         return redirect("/password-update/$user->id");
