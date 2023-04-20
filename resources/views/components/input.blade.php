@@ -8,5 +8,5 @@
         ? ''
         : ($errors->has($name)
             ? ''
-            : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.png' />") !!}
+            : "<img class='absolute w-5 right-3 bottom-5' src='/assets/success.svg' />") !!}
 </div>
