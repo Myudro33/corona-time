@@ -20,15 +20,14 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::controller(VerificationController::class)->group(function () {
     Route::get('/verify-email/{token}', 'verifyEmail')->name('verification.verify');
-    Route::get('/reset-password/{token}', 'ResetPassword')->name('verification.verify');
     Route::get('/confirmation', 'view')->name('confirmation')->name('verification.notice');
     Route::get('/confirmed', 'show')->name('confirmed.show');
 });
 
 Route::controller(ResetPasswordController::class)->group(function () {
     Route::get('/forgot-password', 'index')->name('forgot-password.index');
-    Route::get('/password-update/{user}', 'show')->name('password-update.show');
+    Route::get('/password-update/{token}', 'show')->name('password-update.show');
     Route::get('/password-confirmed', 'view')->name('password-confirmed.view');
-    Route::post('/password-update/{user}', 'reset_password')->name('password.reset');
+    Route::post('/password-update/{token}', 'reset_password')->name('password.reset');
     Route::post('/forgot-password', 'send_reset_password_mail')->name('password.email');
 });
