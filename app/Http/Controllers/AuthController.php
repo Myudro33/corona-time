@@ -18,7 +18,7 @@ class AuthController extends Controller
 {
     public function index(): View
     {
-        return view('pages.dashboard');
+        return view('pages.worldwide');
     }
 
     // login
@@ -35,9 +35,9 @@ class AuthController extends Controller
         if ($user) {
             if (Hash::check($password, $user->password)) {
                 if (Auth::attempt(['username' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
-                    return redirect('/');
+                    return redirect('/worldwide');
                 } elseif (Auth::attempt(['email' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
-                    return redirect('/');
+                    return redirect('/worldwide');
                 } else {
                     return back()->withErrors(['password' => __('login.wrong_password')]);
                 }
