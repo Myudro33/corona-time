@@ -12,16 +12,16 @@
         </div>
     </div>
     <div class="md:hidden xs:flex" @click.away="show = false" x-data="{ show: false }">
-        <button class="flex items-center" @click="show = !show"><img class="mx-1" src="/assets/Vector.svg">
+        <button class="flex items-center" @click="show = !show"><img class="mx-1 w-8" src="/assets/Vector.svg">
         </button>
-        <div class="z-10 bg-white absolute left-0 top-0 w-full h-20 p-3 flex justify-between items-center"
-            style="display: none" x-show="show">
-            <h1 class="text-[#010414] font-bold">{{ Auth::user()->username }}</h1>
+        <div class="z-10 bg-white absolute left-0 top-0 w-full h-60 p-3 flex flex-col justify-center items-center shadow-md" style="display: none" x-show="show">
+            <h1 class="text-[#010414] font-bold my-5 text-xl">{{ Auth::user()->username }}</h1>
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <button class="text-[#010414] font-medium" type="submit">Log Out</button>
             </form>
-            <button class="flex items-center" @click="show = !show"><img class="w-4" src="/assets/Vector.svg">
+            <button class="flex items-center absolute right-3 top-9" @click="show = !show"><img class="w-5"
+                    src="/assets/Vector.svg">
             </button>
         </div>
     </div>
