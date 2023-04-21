@@ -16,9 +16,9 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function index(): View
+    public function index(): RedirectResponse
     {
-        return view('pages.worldwide');
+        return redirect('/login');
     }
 
     // login
@@ -31,7 +31,9 @@ class AuthController extends Controller
         $rememberDevice = $request->has('remember') ? true : false;
         $emailOrUsername = $request->validated()['username'];
         $password = $request->validated()['password'];
-        $user = User::where('email', $emailOrUsername)->orWhere('username', $emailOrUsername)->first();
+        $user = User::where('email', $emailOrUsername)
+            ->orWhere('username', $emailOrUsername)
+            ->first();
         if ($user) {
             if (Hash::check($password, $user->password)) {
                 if (Auth::attempt(['username' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
@@ -68,8 +70,9 @@ class AuthController extends Controller
         $user->password = bcrypt($request->validated()['password']);
         $user->verification_token = Str::random(40);
         $user->save();
-        $mail = new VerifyEmail($user);
-        Mail::to($user->email)->locale(Session::get('locale'))->send(new VerifyEmail($user));
+        Mail::to($user->email)
+            ->locale(Session::get('locale'))
+            ->send(new VerifyEmail($user));
 
         return redirect('/confirmation');
     }
