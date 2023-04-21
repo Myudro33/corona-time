@@ -1,5 +1,5 @@
 <div class="w-full h-20 flex md:px-28 xs:px-4 items-center justify-between shadow-md">
-    <img class="xs:w-32 xs:h-8 md:w-44 md:h-11" src="assets/logo.png" alt="">
+    <img class="xs:w-32 xs:h-8 md:w-44 md:h-11" src="assets/logo.svg" alt="">
     <div class="w-96 h-10 relative flex justify-end">
         <x-language-switch class="md:left-0 md:top-0 xs:top-0 xs:left-5" />
         <div class="md:flex items-center xs:hidden">
