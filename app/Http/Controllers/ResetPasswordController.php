@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('pages.forgot_password');
     }
-    public function show($token)
+    public function show($token): View
     {
         return view('pages.password-update', [
             'token' => $token,
@@ -24,12 +26,12 @@ class ResetPasswordController extends Controller
                 ->first()->email,
         ]);
     }
-    public function view()
+    public function view(): View
     {
         return view('pages.password-update-confirmed');
     }
 
-    public function reset_password(PasswordResetRequest $request)
+    public function reset_password(PasswordResetRequest $request): RedirectResponse
     {
         $password_reset_required = DB::table('password_reset_tokens')
             ->where('email', $request->validated()['email'])
@@ -41,7 +43,7 @@ class ResetPasswordController extends Controller
         User::where('email', $request->email)->update(['password' => bcrypt($request->validated()['password'])]);
         return redirect('/password-confirmed');
     }
-    public function send_reset_password_mail(PasswordUpdateRequest $request)
+    public function send_reset_password_mail(PasswordUpdateRequest $request): RedirectResponse
     {
         $token = Str::random(40);
         $isExist = DB::table('password_reset_tokens')

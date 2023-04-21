@@ -26,7 +26,7 @@ class AuthController extends Controller
     {
         return view('pages.login');
     }
-    public function login(UserLoginRequest $request)
+    public function login(UserLoginRequest $request): RedirectResponse
     {
         $rememberDevice = $request->has('remember') ? true : false;
         $emailOrUsername = $request->validated()['username'];
@@ -48,7 +48,7 @@ class AuthController extends Controller
             return back()->withErrors(['username' => __('login.wrong_username_or_email')]);
         }
     }
-    public function logout()
+    public function logout(): RedirectResponse
     {
         auth()->logout();
         return redirect('/login');

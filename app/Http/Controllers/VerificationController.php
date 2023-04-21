@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Http\RedirectResponse;
 
 class VerificationController extends Controller
 {
@@ -18,7 +17,7 @@ class VerificationController extends Controller
         return view('pages.confirmed');
     }
 
-    public function verifyEmail(Request $request, $token)
+    public function verifyEmail($token): RedirectResponse
     {
         // Find the user with the given token
         $user = User::where('verification_token', $token)->firstOrFail();
