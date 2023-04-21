@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\VerificationController;
@@ -11,10 +12,7 @@ Route::get('/locale/{lang}', [LanguageController::class, 'setLang']);
 
 // user
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/', function () {
-        return redirect('/worldwide');
-    });
-    Route::get('/worldwide', 'index')->name('dashboard')->middleware('auth');
+    Route::get('/', 'index');
     Route::get('/login', 'view')->name('login.view')->middleware('guest');
     Route::post('/login/user', 'login')->name('login')->middleware('verify.api');
     Route::get('/register', 'create')->name('register.create')->middleware('guest');
@@ -33,4 +31,12 @@ Route::controller(ResetPasswordController::class)->group(function () {
     Route::get('/password-confirmed', 'view')->name('password-confirmed.view');
     Route::post('/password-update/{token}', 'reset_password')->name('password.reset');
     Route::post('/forgot-password', 'send_reset_password_mail')->name('password.email');
+});
+
+
+Route::controller(DashboardController::class)->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('/worldwide', 'index')->name('worldwide');
+        Route::get('/bycountry', 'show')->name('bycountry');
+    });
 });
