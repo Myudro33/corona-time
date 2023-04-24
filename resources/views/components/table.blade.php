@@ -64,7 +64,3 @@
         border-radius: 4px;
     }
 </style>
-background: #808189;
-border-radius: 4px;
-}
-</style>

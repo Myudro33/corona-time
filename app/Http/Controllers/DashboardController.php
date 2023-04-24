@@ -25,7 +25,9 @@ class DashboardController extends Controller
         $nextOrder = $order === 'asc' ? 'desc' : 'asc';
         $countries = Country::query();
         if (request('search')) {
-            $countries = DB::table('countries')->where(DB::raw("json_extract(name, '$. " . "$lang')"), 'LIKE', '%' . request('search') . '%');
+            $countries = DB::table('countries')
+                ->where(DB::raw("json_extract(name, '$. " . "$lang')"), 'LIKE', '%' . request('search') . '%')
+                ->orWhere(DB::raw("json_extract(name, '$. " . "$lang')"), 'LIKE', '%' . ucfirst(request('search')) . '%');
         }
         if ($sort) {
             $countries->orderBy($sort, $order);
