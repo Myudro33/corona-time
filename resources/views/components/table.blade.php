@@ -9,7 +9,7 @@
             <tr class="bg-[#F6F6F7] h-14 border border-[#F6F6F7]">
                 <th class="w-1/4 md:pl-10 xs:pl-4 rounded-tl-lg">
                     <x-table-sort title="location" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
-                        sortby="country" order="{{ $order }}" />
+                        sortby="name" order="{{ $order }}" />
                 </th>
                 <th class="w-[25%] md:pl-10 xs:pl-4">
                     <x-table-sort title="new_cases" column="{{ $column }}" nextOrder="{{ $nextOrder }}"

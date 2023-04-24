@@ -30,7 +30,11 @@ class DashboardController extends Controller
                 ->orWhere(DB::raw("json_extract(name, '$. " . "$lang')"), 'LIKE', '%' . ucfirst(request('search')) . '%');
         }
         if ($sort) {
-            $countries->orderBy($sort, $order);
+            if ($sort == 'name') {
+                $countries->orderByRaw("CAST(JSON_EXTRACT(name, '$." . $lang . "') AS CHAR) " . $order)->orderBy($sort, $order);
+            } else {
+                $countries->orderBy($sort, $order);
+            }
         }
         $countries = $countries->get();
         return view(
