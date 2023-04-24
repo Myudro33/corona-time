@@ -8,34 +8,21 @@
         <table class="w-full text-sm text-left border border-[#F6F6F7]">
             <tr class="bg-[#F6F6F7] h-14 border border-[#F6F6F7]">
                 <th class="w-1/4 md:pl-10 xs:pl-4 rounded-tl-lg">
-                    <div class="flex items-center">
-                        <a
-                            href="?sort=country&order={{ $column == 'country' ? $nextOrder : 'asc' }}&{{http_build_query(request()->except('sort','order'))}}">@lang('dashboard.location')</a>
-                        <x-sort-icons column="{{ $column }}" sortby="country" order="{{ $order }}" />
-                    </div>
+                    <x-table-sort title="location" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
+                        sortby="country" order="{{ $order }}" />
                 </th>
                 <th class="w-[25%] md:pl-10 xs:pl-4">
-                    <div class="flex items-center">
-                        <a
-                            href="?sort=confirmed&order={{ $column == 'confirmed' ? $nextOrder : 'asc' }}&{{http_build_query(request()->except('sort','order'))}}">@lang('dashboard.new_cases')</a>
-                        <x-sort-icons column="{{ $column }}" sortby="confirmed" order="{{ $order }}" />
+                    <x-table-sort title="new_cases" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
+                        sortby="confirmed" order="{{ $order }}" />
 
-                    </div>
                 </th>
                 <th class="md:w-1/5 xs:h-1/4 md:pl-10 xs:pl-4">
-                    <div class="flex items-center">
-                        <a
-                            href="?sort=deaths&order={{ $column == 'deaths' ? $nextOrder : 'asc' }}&{{http_build_query(request()->except('sort','order'))}}">@lang('dashboard.deaths')</a>
-                        <x-sort-icons column="{{ $column }}" sortby="deaths" order="{{ $order }}" />
-                    </div>
-
+                    <x-table-sort title="deaths" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
+                        sortby="deaths" order="{{ $order }}" />
                 </th>
                 <th class="md:pl-10 xs:pl-4 rounded-tr-lg">
-                    <div class="flex items-center">
-                        <a
-                            href="?sort=recovered&order={{ $column == 'recovered' ? $nextOrder : 'asc' }}&{{http_build_query(request()->except('sort','order'))}}">@lang('dashboard.recovered')</a>
-                        <x-sort-icons column="{{ $column }}" sortby="recovered" order="{{ $order }}" />
-                    </div>
+                    <x-table-sort title="recovered" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
+                        sortby="recovered" order="{{ $order }}" />
                 </th>
             </tr>
             <tbody>
@@ -76,4 +63,8 @@
         background: #808189;
         border-radius: 4px;
     }
+</style>
+background: #808189;
+border-radius: 4px;
+}
 </style>
