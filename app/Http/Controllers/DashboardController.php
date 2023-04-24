@@ -24,11 +24,11 @@ class DashboardController extends Controller
         $order = $request->input('order');
         $nextOrder = $order === 'asc' ? 'desc' : 'asc';
         $countries = Country::query();
+        if (request('search')) {
+            $countries = DB::table('countries')->where(DB::raw("json_extract(name, '$. " . "$lang')"), 'LIKE', '%' . request('search') . '%');
+        }
         if ($sort) {
             $countries->orderBy($sort, $order);
-        }
-        if (request('search')) {
-            $countries = DB::table('countries')->where(DB::raw("json_extract(name, '$. " . "$lang')"), 'LIKE', '%' . ucfirst(request('search')) . '%');
         }
         $countries = $countries->get();
         return view(
