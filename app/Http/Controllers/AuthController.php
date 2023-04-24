@@ -52,6 +52,9 @@ class AuthController extends Controller
     }
     public function logout(): RedirectResponse
     {
+        $user = auth()->user();
+        $user->setRememberToken(null);
+        $user->save();
         auth()->logout();
         return redirect('/login');
     }
