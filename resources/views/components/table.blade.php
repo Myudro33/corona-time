@@ -1,4 +1,4 @@
-@props(['column', 'nextOrder', 'confirmed', 'deaths', 'recovered', 'countries', 'order'])
+@props(['confirmed', 'deaths', 'recovered', 'countries'])
 
 @php
     $lang = app()->getLocale();
@@ -8,21 +8,17 @@
         <table class="w-full md:text-sm xs:text-[10px] text-left border border-[#F6F6F7]">
             <tr class="bg-[#F6F6F7] h-14 border border-[#F6F6F7]">
                 <th class="w-1/4 md:pl-10 xs:pl-4 rounded-tl-lg">
-                    <x-table-sort title="location" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
-                        sortby="name" order="{{ $order }}" />
+                    <x-table-sort title="location" sortby="name" />
                 </th>
                 <th class="w-[25%] md:pl-10 xs:pl-2">
-                    <x-table-sort title="new_cases" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
-                        sortby="confirmed" order="{{ $order }}" />
+                    <x-table-sort title="new_cases" sortby="confirmed" />
 
                 </th>
                 <th class="md:w-1/5 xs:h-1/4 md:pl-10 xs:pl-2">
-                    <x-table-sort title="deaths" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
-                        sortby="deaths" order="{{ $order }}" />
+                    <x-table-sort title="deaths" sortby="deaths" />
                 </th>
                 <th class="md:pl-10 xs:pl-2 rounded-tr-lg">
-                    <x-table-sort title="recovered" column="{{ $column }}" nextOrder="{{ $nextOrder }}"
-                        sortby="recovered" order="{{ $order }}" />
+                    <x-table-sort title="recovered" sortby="recovered" />
                 </th>
             </tr>
             <tbody>

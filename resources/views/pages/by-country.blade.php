@@ -17,7 +17,7 @@
                 <img class="absolute top-4 left-5" src="/assets/search.svg" alt="">
             </form>
         </div>
-        <x-table column="{{ $column }}" nextOrder="{{ $nextOrder }}" confirmed="{{ $confirmed }}"
-            deaths="{{ $deaths }}" recovered="{{ $recovered }}" :countries="$countries" order="{{ $order }}" />
+        <x-table confirmed="{{ $confirmed }}" deaths="{{ $deaths }}" recovered="{{ $recovered }}"
+            :countries="$countries" />
     </x-dashboard>
 @endsection
