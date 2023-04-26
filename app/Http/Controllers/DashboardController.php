@@ -11,8 +11,6 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-        $sum = Country::all()->sum('confirmed');
-        // ddd($sum);
         return view('pages.worldwide', [
             'confirmed' => Country::all()->sum('confirmed'),
             'recovered' => Country::all()->sum('recovered'),

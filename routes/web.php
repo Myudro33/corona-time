@@ -12,7 +12,7 @@ Route::get('/locale/{lang}', [LanguageController::class, 'setLang']);
 
 // user
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('dashboard')->middleware('auth');
     Route::get('/login', 'view')->name('login.view')->middleware('guest');
     Route::post('/login', 'login')->name('login')->middleware('verify.api');
     Route::get('/register', 'create')->name('register.create')->middleware('guest');
