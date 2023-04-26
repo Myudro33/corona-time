@@ -11,18 +11,20 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
+        $sum = Country::all()->sum('confirmed');
+        // ddd($sum);
         return view('pages.worldwide', [
-            'confirmed' => DB::table('countries')->sum('confirmed'),
-            'recovered' => DB::table('countries')->sum('recovered'),
-            'deaths' => DB::table('countries')->sum('deaths'),
+            'confirmed' => Country::all()->sum('confirmed'),
+            'recovered' => Country::all()->sum('recovered'),
+            'deaths' => Country::all()->sum('deaths'),
         ]);
     }
     public function show(): View
     {
         return view('pages.by-country', [
-            'confirmed' => DB::table('countries')->sum('confirmed'),
-            'recovered' => DB::table('countries')->sum('recovered'),
-            'deaths' => DB::table('countries')->sum('deaths'),
+            'confirmed' => Country::all()->sum('confirmed'),
+            'recovered' => Country::all()->sum('recovered'),
+            'deaths' => Country::all()->sum('deaths'),
             'countries' => Country::filter()->get(),
         ]);
     }
