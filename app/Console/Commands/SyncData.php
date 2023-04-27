@@ -29,13 +29,15 @@ class SyncData extends Command
     {
         $urlCountryies = 'https://devtest.ge/countries';
         $url = 'https://devtest.ge/get-country-statistics';
-        $storage = (array) null;
+        $storage = [];
         $countries = Http::get($urlCountryies);
         $countries_response = json_decode($countries->body());
-        foreach ($countries_response as $country) {
-            $country = (array) $country;
-            $response = Http::post($url, ['code' => $country['code']]);
-            array_push($storage, json_decode($response->body()));
+        if($countries_response!==null){
+            foreach ($countries_response as $country) {
+                $country = (array) $country;
+                $response = Http::post($url, ['code' => $country['code']]);
+                array_push($storage, json_decode($response->body()));
+            }
         }
         $id = 0;
         foreach ($storage as $data) {
