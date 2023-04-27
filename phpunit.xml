@@ -15,6 +15,7 @@
         </include>
         <exclude>
             <directory>./app/Http/Middleware</directory>
+            <directory>./app/Http/Requests</directory>
             <directory>./app/Exceptions</directory>
             <directory>./app/Providers</directory>
             <file>./app/Console/Kernel.php</file>

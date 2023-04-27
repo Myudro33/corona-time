@@ -6,7 +6,6 @@ use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -78,7 +77,6 @@ class RegisterTest extends TestCase
     public function test_if_register_is_successfull_sent_email()
     {
         $this->withoutMiddleware();
-        $token = Str::random(30);
         Mail::fake();
         $response = $this->post('/register', [
             'email' => 'nika@gmail.com',
