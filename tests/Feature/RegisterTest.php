@@ -14,17 +14,15 @@ class RegisterTest extends TestCase
     public function test_user_can_redirect_to_register_page()
     {
         $response = $this->get(route('register.create'));
-        $response->assertStatus(302);
+        $response->assertSuccessful();
     }
     public function test_auth_should_give_us_errors_if_inputs_is_not_provided()
     {
-        $this->withoutMiddleware();
         $response = $this->post(route('register'));
         $response->assertSessionHasErrors(['username', 'email', 'password', 'confirm_password']);
     }
     public function test_auth_should_give_us_error_if_email_is_not_valid()
     {
-        $this->withoutMiddleware();
         $response = $this->post(route('register'), [
             'email' => 'awjdklawjd',
         ]);
@@ -32,8 +30,6 @@ class RegisterTest extends TestCase
     }
     public function test_auth_should_give_us_error_if_username_already_exists()
     {
-        $this->withoutMiddleware();
-
         User::factory()->create([
             'username' => 'unique',
         ]);
@@ -44,8 +40,6 @@ class RegisterTest extends TestCase
     }
     public function test_auth_should_give_us_error_if_email_already_exists()
     {
-        $this->withoutMiddleware();
-
         User::factory()->create([
             'email' => 'unique@gmail.com',
         ]);
@@ -56,7 +50,6 @@ class RegisterTest extends TestCase
     }
     public function test_auth_should_give_us_error_if_passwords_do_not_match()
     {
-        $this->withoutMiddleware();
         $response = $this->post('/register', [
             'password' => 'nika',
             'confirm_password' => 'luka',
@@ -65,7 +58,6 @@ class RegisterTest extends TestCase
     }
     public function test_user_can_register_if_sesion_has_no_errors()
     {
-        $this->withoutMiddleware();
         $response = $this->post('/register', [
             'username' => 'nika',
             'email' => 'nika@redberry.ge',
@@ -73,17 +65,16 @@ class RegisterTest extends TestCase
             'confirm_password' => 'nika',
         ]);
         $response->assertSessionHasNoErrors();
+        $response->assertRedirect('/confirmation');
     }
     public function test_if_register_is_successfull_sent_email()
     {
-        $this->withoutMiddleware();
         Mail::fake();
         $response = $this->post('/register', [
             'email' => 'nika@gmail.com',
             'username' => 'nika',
             'password' => 'ddd',
             'confirm_password' => 'ddd',
-            'verification_token'=> 'abdg'
         ]);
         $response->assertRedirect('/confirmation');
         Mail::to('nika@gmail.com');
