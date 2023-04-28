@@ -11,9 +11,8 @@ use Tests\TestCase;
 class DashboardTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_user_can_redirect_worldwide_page(): void
+    public function test_authenticated_user_can_redirect_dashboard_page(): void
     {
-        $this->withoutMiddleware();
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/worldwide');
         $response->assertViewIs('pages.worldwide');
@@ -21,7 +20,6 @@ class DashboardTest extends TestCase
     }
     public function test_user_can_redirect_country_page(): void
     {
-        $this->withoutMiddleware();
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/bycountry');
         $response->assertViewIs('pages.by-country');
@@ -29,7 +27,6 @@ class DashboardTest extends TestCase
     }
     public function test_user_can_sort_table_on_country_page_by_country_name(): void
     {
-        $this->withoutMiddleware();
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/bycountry', ['sort' => 'name', 'order' => 'asc']);
         $response->assertViewIs('pages.by-country');
@@ -37,7 +34,6 @@ class DashboardTest extends TestCase
     }
     public function test_user_can_sort_table_on_country_page_by_country_confirmed(): void
     {
-        $this->withoutMiddleware();
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/bycountry', ['sort' => 'confirmed', 'order' => 'asc']);
         $response->assertViewIs('pages.by-country');
@@ -45,7 +41,6 @@ class DashboardTest extends TestCase
     }
     public function test_user_can_sort_table_on_country_page_by_country_deaths(): void
     {
-        $this->withoutMiddleware();
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/bycountry', ['sort' => 'deaths', 'order' => 'asc']);
         $response->assertViewIs('pages.by-country');
@@ -53,7 +48,6 @@ class DashboardTest extends TestCase
     }
     public function test_user_can_sort_table_on_country_page_by_country_recovered(): void
     {
-        $this->withoutMiddleware();
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/bycountry', ['sort' => 'recovered', 'order' => 'asc']);
         $response->assertViewIs('pages.by-country');
@@ -61,7 +55,6 @@ class DashboardTest extends TestCase
     }
     public function test_user_can_search_countries_using_name_in_table(): void
     {
-        $this->withoutMiddleware();
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/bycountry', ['search' => 'geo']);
         $response->assertViewIs('pages.by-country');
