@@ -16,7 +16,7 @@ class RegisterTest extends TestCase
         $response = $this->get(route('register.create'));
         $response->assertSuccessful();
     }
-    public function test_auth_should_give_us_errors_if_inputs_is_not_provided()
+    public function test_auth_register_should_give_us_errors_if_inputs_are_not_provided()
     {
         $response = $this->post(route('register'));
         $response->assertSessionHasErrors(['username', 'email', 'password', 'confirm_password']);
@@ -30,11 +30,11 @@ class RegisterTest extends TestCase
     }
     public function test_auth_should_give_us_error_if_username_already_exists()
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'username' => 'unique',
         ]);
         $response = $this->post('/register', [
-            'username' => 'unique',
+            'username' => $user->username,
         ]);
         $response->assertSessionHasErrors(['username']);
     }
@@ -76,8 +76,11 @@ class RegisterTest extends TestCase
             'password' => 'ddd',
             'confirm_password' => 'ddd',
         ]);
+        Mail::assertSent(VerifyEmail::class, function (VerifyEmail $mail) {
+            $this->assertCount(1, $mail->to);
+            $this->assertEquals('nika@gmail.com', $mail->to[0]['address']);
+            return true;
+        });
         $response->assertRedirect('/confirmation');
-        Mail::to('nika@gmail.com');
-        Mail::assertSent(VerifyEmail::class);
     }
 }

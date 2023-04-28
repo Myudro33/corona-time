@@ -44,7 +44,7 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['password']);
     }
-    public function test_login_form_should_give_us_incorrect_credentials_error_when_user_does_not_exists()
+    public function test_login_form_should_give_us_error_when_user_does_not_exists()
     {
         $response = $this->post('/login', [
             'username' => 'nika@gmail.com',
@@ -52,7 +52,7 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['username']);
     }
-    public function test_login_form_should_give_us_incorrect_credentials_error_when_password_is_incorrect()
+    public function test_login_form_should_give_us__error_when_password_is_incorrect()
     {
         $user = User::factory()->create();
         $response = $this->post('/login', [
@@ -61,18 +61,10 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['password']);
     }
-    public function test_login_form_should_redirec_to_dashboard_page()
+    public function test_login_form_should_redirect_to_dashboard_page()
     {
-        $username = 'nika';
-        $password = 'ddd';
-        User::factory()->create([
-            'username' => $username,
-            'password' => bcrypt($password),
-        ]);
-        $response = $this->post('/login', [
-            'username' => $username,
-            'password' => $password,
-        ]);
+        $user = User::factory()->create();
+        $response = $this->post('/login', ['username' => $user->email, 'password' => 'ddd']);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect('/worldwide');
     }
@@ -80,8 +72,8 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create();
         $this->actingAs($user)
-        ->post('/logout')
-        ->assertRedirect('/login');
+            ->post('/logout')
+            ->assertRedirect('/login');
         $this->assertGuest();
     }
 }
