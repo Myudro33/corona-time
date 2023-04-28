@@ -20,7 +20,7 @@ class AuthTest extends TestCase
 
         $response->assertSuccessful();
     }
-    public function test_auth_should_give_us_errors_if_input_is_not_provided(): void
+    public function test_login_form_should_give_us_errors_if_input_is_not_provided(): void
     {
         $response = $this->post('/login', [
             'username' => '',
@@ -28,7 +28,7 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['username', 'password']);
     }
-    public function test_auth_should_give_us_error_if_email_is_not_provided()
+    public function test_login_form_should_give_us_error_if_email_is_not_provided()
     {
         $response = $this->post('/login', [
             'username' => '',
@@ -36,7 +36,7 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['username']);
     }
-    public function test_auth_should_give_us_password_error_if_password_is_not_provided()
+    public function test_login_form_should_give_us_password_error_if_password_is_not_provided()
     {
         $response = $this->post('/login', [
             'username' => 'awdawdawd',
@@ -44,7 +44,7 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['password']);
     }
-    public function test_auth_should_give_us_incorrect_credentials_error_when_user_does_not_exists()
+    public function test_login_form_should_give_us_incorrect_credentials_error_when_user_does_not_exists()
     {
         $response = $this->post('/login', [
             'username' => 'nika@gmail.com',
@@ -52,7 +52,7 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['username']);
     }
-    public function test_auth_should_give_us_incorrect_credentials_error_when_password_is_incorrect()
+    public function test_login_form_should_give_us_incorrect_credentials_error_when_password_is_incorrect()
     {
         $user = User::factory()->create();
         $response = $this->post('/login', [
@@ -61,7 +61,7 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['password']);
     }
-    public function test_auth_should_redirec_to_dashboard_page()
+    public function test_login_form_should_redirec_to_dashboard_page()
     {
         $username = 'nika';
         $password = 'ddd';
