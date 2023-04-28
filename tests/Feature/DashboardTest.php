@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -14,6 +15,7 @@ class DashboardTest extends TestCase
     public function test_authenticated_user_can_redirect_dashboard_page(): void
     {
         $user = User::factory()->create();
+        Country::factory(10)->create();
         $response = $this->actingAs($user)->get('/worldwide');
         $response->assertViewIs('pages.worldwide');
         $response->assertSuccessful();
@@ -25,44 +27,24 @@ class DashboardTest extends TestCase
         $response->assertViewIs('pages.by-country');
         $response->assertSuccessful();
     }
-    public function test_user_can_sort_table_on_country_page_by_country_name(): void
+    public function test_user_can_sort_table_on_countries_page(): void
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/bycountry', ['sort' => 'name', 'order' => 'asc']);
+        Country::factory(10)->create();
+        $response = $this->actingAs($user)->get('/bycountry', ['sort' => request('sort'), 'order' => request('order')]);
         $response->assertViewIs('pages.by-country');
         $response->assertSuccessful();
     }
-    public function test_user_can_sort_table_on_country_page_by_country_confirmed(): void
+    public function test_user_can_search_countries_using_country_name_in_table(): void
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/bycountry', ['sort' => 'confirmed', 'order' => 'asc']);
-        $response->assertViewIs('pages.by-country');
-        $response->assertSuccessful();
-    }
-    public function test_user_can_sort_table_on_country_page_by_country_deaths(): void
-    {
-        $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/bycountry', ['sort' => 'deaths', 'order' => 'asc']);
-        $response->assertViewIs('pages.by-country');
-        $response->assertSuccessful();
-    }
-    public function test_user_can_sort_table_on_country_page_by_country_recovered(): void
-    {
-        $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/bycountry', ['sort' => 'recovered', 'order' => 'asc']);
-        $response->assertViewIs('pages.by-country');
-        $response->assertSuccessful();
-    }
-    public function test_user_can_search_countries_using_name_in_table(): void
-    {
-        $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/bycountry', ['search' => 'geo']);
+        Country::factory(10)->create();
+        $response = $this->actingAs($user)->get('/bycountry', ['search' => request('search'), 'sort' => 'name', 'order' => request('order') == 'desc' ? 'asc' : 'desc']);
         $response->assertViewIs('pages.by-country');
         $response->assertSuccessful();
     }
     public function test_artisan_command_should_sync_data_in_database(): void
     {
-        Http::fake();
         $this->artisan('app:sync-data')->assertSuccessful();
     }
     public function test_artisan_command_delete_reset_tokens(): void

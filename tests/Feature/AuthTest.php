@@ -12,13 +12,13 @@ class AuthTest extends TestCase
     public function test_guest_must_redirect_to_login()
     {
         $response = $this->get(route('dashboard'));
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/login')->assertStatus(302);
     }
     public function test_login_page_is_accessible()
     {
         $response = $this->get(route('login.view'));
 
-        $response->assertSuccessful();
+        $response->assertSuccessful()->assertViewIs('pages.login');
     }
     public function test_login_form_should_give_us_errors_if_input_is_not_provided(): void
     {
@@ -46,13 +46,16 @@ class AuthTest extends TestCase
     }
     public function test_login_form_should_give_us_error_when_user_does_not_exists()
     {
+        User::factory()->create([
+            'email'=>'test@gmail.com'
+        ]);
         $response = $this->post('/login', [
             'username' => 'nika@gmail.com',
             'password' => 'ddd',
         ]);
         $response->assertSessionHasErrors(['username']);
     }
-    public function test_login_form_should_give_us__error_when_password_is_incorrect()
+    public function test_login_form_should_give_us_error_when_password_is_incorrect()
     {
         $user = User::factory()->create();
         $response = $this->post('/login', [
@@ -61,9 +64,24 @@ class AuthTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['password']);
     }
+    public function test_user_should_redirect_to_confirmation_page_if_email_is_not_verified()
+    {
+        $email = 'nika@gmail.com';
+        $password = 'ddd';
+
+        User::factory()->create([
+            'username' => 'nika',
+            'email' => $email,
+            'password' => bcrypt($password),
+            'email_verified_at' => null,
+        ]);
+        $this->post(route('login'), ['username' => $email, 'password' => $password])->assertRedirect('/confirmation')->assertStatus(302);
+    }
     public function test_login_form_should_redirect_to_dashboard_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at'=>now()
+        ]);
         $response = $this->post('/login', ['username' => $user->email, 'password' => 'ddd']);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect('/worldwide');

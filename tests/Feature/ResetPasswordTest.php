@@ -6,7 +6,9 @@ use App\Mail\ResetPassword;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
@@ -20,8 +22,6 @@ class ResetPasswordTest extends TestCase
     }
     public function test_password_reset_successfully_page_should_render(): void
     {
-        $user = User::factory()->create();
-        $this->post("/password-update/$user->verification_token", ['email' => $user->email, 'password' => 'nika'])->assertStatus(302);
         $this->get('/password-confirmed')
             ->assertSuccessful()
             ->assertViewIs('pages.password-update-confirmed');
@@ -42,10 +42,68 @@ class ResetPasswordTest extends TestCase
     }
     public function test_show_validation_error_if_email_does_not_exists(): void
     {
+        User::factory()->create([
+            'email' => 'test@gmail.com',
+        ]);
         $response = $this->post(route('password.email'), [
             'email' => 'example@gmail.com',
         ]);
         $response->assertSessionHasErrors(['email']);
+    }
+    public function test_password_reset_check_valid_email_and_redirect_to_confirmation_view()
+    {
+        $email = 'nika@gmail.com';
+        User::factory()->create([
+            'email' => $email,
+        ]);
+        $response = $this->post(route('password.email'), [
+            'email' => $email,
+        ]);
+        $response->assertSessionDoesntHaveErrors(['email'])->assertRedirect('/confirmation');
+    }
+    public function test_password_reset_check_if_it_a_valid_token_for_password_reset_and_show_password_reset_view()
+    {
+        $email = 'nika@gmail.com';
+        $token = Str::random(40);
+        DB::table('password_reset_tokens')->insert([
+            'email' => $email,
+            'token' => $token,
+        ]);
+        $response = $this->get(route('password.reset', ['email' => $email, 'token' => $token]));
+        $response->assertSuccessful()->assertViewIs('pages.password-update');
+    }
+    public function test_password_reset_check_should_give_us_error_if_password_length_is_less_than_3()
+    {
+        $email = 'nika@gmail.com';
+        $token = Str::random(40);
+        $password = 'dd';
+        $confirmPassword = 'dd';
+        $response = $this->post(route('password.reset', ['email' => $email, 'token' => $token]), [
+            'password' => $password,
+            'confirm_password' => $confirmPassword,
+        ]);
+        $response->assertSessionHasErrors(['password']);
+    }
+    public function test_password_reset_check_should_give_us_error_if_password_and_confirm_password_input_is_not_provided()
+    {
+        $email = 'nika@gmail.com';
+        $token = Str::random(40);
+        $response = $this->post(route('password.reset', ['email' => $email, 'token' => $token]));
+        $response->assertSessionHasErrors(['password', 'confirm_password']);
+    }
+    public function test_password_reset_page_should_redirect_if_password_changed_successfully()
+    {
+        $email = 'nika@gmail.com';
+        $token = Str::random(40);
+        $password = 'dddd';
+        $confirm_password = 'dddd';
+        User::factory()->create([
+            'email' => $email,
+        ]);
+        $this->post(route('password.reset', ['email' => $email, 'token' => $token]), [
+            'password' => $password,
+            'confirm_password' => $confirm_password,
+        ])->assertSessionHasNoErrors();
     }
     public function test_if_provided_email_is_correct_send_reset_password_email(): void
     {

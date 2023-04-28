@@ -15,13 +15,13 @@ class MailVerificationTest extends TestCase
     {
         $this->withoutMiddleware();
         $response = $this->get('/confirmation');
-        $response->assertSuccessful();
+        $response->assertSuccessful()->assertViewIs('pages.confirmation');
     }
     public function test_confirmed_page_should_render_after_email_submit_successfully(): void
     {
         $this->withoutMiddleware();
         $response = $this->get('/confirmed');
-        $response->assertSuccessful();
+        $response->assertSuccessful()->assertViewIs('pages.confirmed');
     }
     public function test_email_body_has_verification_token(): void
     {

@@ -12,6 +12,8 @@
     <coverage>
         <include>
             <directory suffix=".php">./app</directory>
+            <file>./app/Http/Middleware/SetLocale.php</file>
+
         </include>
         <exclude>
             <directory>./app/Http/Middleware</directory>

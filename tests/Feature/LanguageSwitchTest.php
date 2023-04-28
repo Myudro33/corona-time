@@ -10,16 +10,16 @@ class LanguageSwitchTest extends TestCase
     use RefreshDatabase;
     public function test_name_should_be_changed_to_english(): void
     {
-        $this->withoutMiddleware();
         $response = $this->get('/locale/en');
         $response->assertRedirect('/');
+        $response->assertSessionHas('locale', 'en');
         $response->assertStatus(302);
     }
     public function test_name_should_be_changed_to_georgian(): void
     {
-        $this->withoutMiddleware();
-        $response = $this->get('/locale/ge');
+        $response = $this->get('/locale/ka');
         $response->assertRedirect('/');
+        $response->assertSessionHas('locale', 'ka');
         $response->assertStatus(302);
     }
 }
