@@ -22,7 +22,6 @@ class SetLocale
         } else {
             Session::put('locale', 'en');
             App::setLocale(Session::get('locale'));
-            return redirect()->back();
         }
         return $next($request);
     }
