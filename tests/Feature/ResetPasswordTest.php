@@ -11,44 +11,44 @@ use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
     public function test_forgot_password_page_is_accessible(): void
     {
-        $response = $this->get(route('forgot-password.index'));
-        $response->assertStatus(302);
+        $response = $this->get(route('forgot-password.index'))->assertViewIs('pages.forgot_password');
+        $response->assertSuccessful();
     }
-    public function text_password_confirmed_page_should_render_after_reset_password(): void
+    public function test_password_reset_successfully_page_should_render(): void
     {
-        $response = $this->get('/password-confirmed');
-        $response->assertStatus(302);
+        $user = User::factory()->create();
+        $this->post("/password-update/$user->verification_token", ['email' => $user->email, 'password' => 'nika'])->assertStatus(302);
+        $this->get('/password-confirmed')
+            ->assertSuccessful()
+            ->assertViewIs('pages.password-update-confirmed');
     }
-    public function test_show_validation_error_if_input_is_empty(): void
+    public function test_show_email_validation_error_if_input_is_empty(): void
     {
-        $this->withoutMiddleware();
         $response = $this->post(route('password.email'), [
             'email' => '',
         ]);
-        $response->assertSessionHasErrors();
+        $response->assertSessionHasErrors(['email']);
     }
     public function test_show_validation_error_if_value_is_not_email_format(): void
     {
-        $this->withoutMiddleware();
         $response = $this->post(route('password.email'), [
             'email' => 'nika',
         ]);
-        $response->assertSessionHasErrors();
+        $response->assertSessionHasErrors(['email']);
     }
-    public function test_show_validation_error_if_email_is_not_exists(): void
+    public function test_show_validation_error_if_email_does_not_exists(): void
     {
-        $this->withoutMiddleware();
         $response = $this->post(route('password.email'), [
             'email' => 'example@gmail.com',
         ]);
-        $response->assertSessionHasErrors();
+        $response->assertSessionHasErrors(['email']);
     }
     public function test_if_provided_email_is_correct_send_reset_password_email(): void
     {
-        $this->withoutMiddleware();
         Mail::fake();
         $user = User::factory()->create();
         $this->post(route('password.email'), ['email' => $user->email]);
