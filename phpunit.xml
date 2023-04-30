@@ -20,6 +20,7 @@
             <directory>./app/Http/Requests</directory>
             <directory>./app/Exceptions</directory>
             <directory>./app/Providers</directory>
+            <directory>./app/Mail</directory>
             <file>./app/Console/Kernel.php</file>
             <file>./app/Http/Kernel.php</file>
             <file>./app/Http/Controllers/Controller.php</file>

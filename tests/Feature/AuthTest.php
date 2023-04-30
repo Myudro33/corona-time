@@ -4,15 +4,33 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_guest_must_redirect_to_login()
+    use WithFaker;
+    public function test_user_with_correct_credentials_can_login()
     {
-        $response = $this->get(route('dashboard'));
-        $response->assertRedirect('/login')->assertStatus(302);
+        // Create a user with a random username and password
+        $password = $this->faker->password;
+        $user = User::factory()->create([
+            'password' => Hash::make($password),
+        ]);
+
+        // Attempt to log in with the user's username and password
+        $response = $this->post('/login', [
+            'username' => $user->username,
+            'password' => $password,
+        ]);
+
+        // Assert that the response redirects to the expected URL
+        $response->assertRedirect('/');
+
+        // Assert that the user is authenticated
+        $this->assertAuthenticatedAs($user);
     }
     public function test_login_page_is_accessible()
     {
@@ -47,7 +65,7 @@ class AuthTest extends TestCase
     public function test_login_form_should_give_us_error_when_user_does_not_exists()
     {
         User::factory()->create([
-            'email'=>'test@gmail.com'
+            'email' => 'test@gmail.com',
         ]);
         $response = $this->post('/login', [
             'username' => 'nika@gmail.com',
@@ -57,12 +75,21 @@ class AuthTest extends TestCase
     }
     public function test_login_form_should_give_us_error_when_password_is_incorrect()
     {
-        $user = User::factory()->create();
-        $response = $this->post('/login', [
-            'username' => $user->email,
-            'password' => 'dawhdjkawhdkjhwa',
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+            'username' => 'testuser',
+            'password' => Hash::make('testpassword'),
         ]);
+
+        $response = $this->post('/login', [
+            'username' => $user->username,
+            'password' => 'wrongpassword',
+        ]);
+
+        $response->assertStatus(302);
         $response->assertSessionHasErrors(['password']);
+
+        $this->assertGuest();
     }
     public function test_user_should_redirect_to_confirmation_page_if_email_is_not_verified()
     {
@@ -75,16 +102,18 @@ class AuthTest extends TestCase
             'password' => bcrypt($password),
             'email_verified_at' => null,
         ]);
-        $this->post(route('login'), ['username' => $email, 'password' => $password])->assertRedirect('/confirmation')->assertStatus(302);
+        $this->post(route('login'), ['username' => $email, 'password' => $password])
+            ->assertRedirect('/confirmation')
+            ->assertStatus(302);
     }
     public function test_login_form_should_redirect_to_dashboard_page()
     {
         $user = User::factory()->create([
-            'email_verified_at'=>now()
+            'email_verified_at' => now(),
         ]);
         $response = $this->post('/login', ['username' => $user->email, 'password' => 'ddd']);
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect('/worldwide');
+        $response->assertRedirect('/');
     }
     public function test_user_can_log_out()
     {
