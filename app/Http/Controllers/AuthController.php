@@ -16,11 +16,6 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function index(): RedirectResponse
-    {
-        return redirect('/login');
-    }
-
     // login
     public function view(): View
     {
@@ -37,14 +32,10 @@ class AuthController extends Controller
         if ($user) {
             if (Hash::check($password, $user->password)) {
                 if (Auth::attempt(['username' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
-                    return redirect('/worldwide');
+                    return redirect('/');
                 } elseif (Auth::attempt(['email' => $emailOrUsername, 'password' => $password], $rememberDevice)) {
-                    return redirect('/worldwide');
-                } else {
-                    return back()->withErrors(['password' => __('login.wrong_password')]);
+                    return redirect('/');
                 }
-            } else {
-                return back()->withErrors(['password' => __('login.wrong_password')]);
             }
         } else {
             return back()->withErrors(['username' => __('login.wrong_username_or_email')]);

@@ -12,7 +12,6 @@ Route::get('/locale/{lang}', [LanguageController::class, 'setLang']);
 
 // user
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/', 'index')->name('dashboard')->middleware('auth');
     Route::get('/login', 'view')->name('login.view')->middleware('guest');
     Route::post('/login', 'login')->name('login')->middleware('verify');
     Route::get('/register', 'create')->name('register.create')->middleware('guest');
@@ -36,7 +35,7 @@ Route::controller(ResetPasswordController::class)->group(function () {
 
 Route::controller(DashboardController::class)->group(function () {
     Route::middleware('auth')->group(function () {
-        Route::get('/worldwide', 'index')->name('worldwide');
+        Route::get('/', 'index')->name('worldwide');
         Route::get('/bycountry', 'show')->name('bycountry');
     });
 });

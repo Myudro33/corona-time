@@ -16,7 +16,7 @@ class DashboardTest extends TestCase
     {
         $user = User::factory()->create();
         Country::factory(10)->create();
-        $response = $this->actingAs($user)->get('/worldwide');
+        $response = $this->actingAs($user)->get('/');
         $response->assertViewIs('pages.worldwide');
         $response->assertSuccessful();
     }
@@ -45,6 +45,7 @@ class DashboardTest extends TestCase
     }
     public function test_artisan_command_should_sync_data_in_database(): void
     {
+        Http::fake();
         $this->artisan('app:sync-data')->assertSuccessful();
     }
     public function test_artisan_command_delete_reset_tokens(): void
