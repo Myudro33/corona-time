@@ -44,11 +44,6 @@ composer install
 ```bash
 npm install
 ```
-and also:
-
-```bash
-npm run dev
-```
 
 4. Now we need to set our env file. Go to the root of your project and execute this command.
 ```bash
