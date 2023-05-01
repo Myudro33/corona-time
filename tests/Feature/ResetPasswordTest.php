@@ -2,19 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Mail\ResetPassword;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
 {
     use RefreshDatabase;
-    use WithFaker;
     public function test_forgot_password_page_is_accessible(): void
     {
         $response = $this->get(route('forgot-password.index'))->assertViewIs('pages.forgot_password');
@@ -25,6 +21,21 @@ class ResetPasswordTest extends TestCase
         $this->get('/password-confirmed')
             ->assertSuccessful()
             ->assertViewIs('pages.password-update-confirmed');
+    }
+    public function test_validation_should_give_us_error_if_email_already_sent()
+    {
+        $email = 'nika@gmail.com';
+        $token = Str::random(40);
+        User::factory()->create([
+            'email' => $email,
+        ]);
+        DB::table('password_reset_tokens')->insert([
+            'email' => $email,
+            'token' => $token,
+        ]);
+        $this->post(route('password.email', ['token' => $token]), [
+            'email' => 'nika@gmail.com',
+        ])->assertSessionHasErrors(['email']);
     }
     public function test_show_email_validation_error_if_input_is_empty(): void
     {
@@ -69,7 +80,7 @@ class ResetPasswordTest extends TestCase
             'email' => $email,
             'token' => $token,
         ]);
-        $response = $this->get(route('password.reset', ['email' => $email, 'token' => $token]));
+        $response = $this->get(route('password.reset', ['token' => $token]));
         $response->assertSuccessful()->assertViewIs('pages.password-update');
     }
     public function test_password_reset_check_should_give_us_error_if_password_length_is_less_than_3()
@@ -95,22 +106,17 @@ class ResetPasswordTest extends TestCase
     {
         $email = 'nika@gmail.com';
         $token = Str::random(40);
-        $password = 'dddd';
-        $confirm_password = 'dddd';
-        User::factory()->create([
+        $password = 'nika';
+        $user = User::factory()->create([
             'email' => $email,
         ]);
-        $this->post(route('password.reset', ['email' => $email, 'token' => $token]), [
+        DB::table('password_reset_tokens')->insert([
+            'email' => $email,
+            'token' => $token,
+        ]);
+        $this->post(route('password.reset', ['token' => $token, 'email' => $user->email]), [
             'password' => $password,
-            'confirm_password' => $confirm_password,
-        ])->assertSessionHasNoErrors();
-    }
-    public function test_if_provided_email_is_correct_send_reset_password_email(): void
-    {
-        Mail::fake();
-        $user = User::factory()->create();
-        $this->post(route('password.email'), ['email' => $user->email]);
-        Mail::to($user->email)->send(new ResetPassword($user));
-        Mail::assertSent(ResetPassword::class);
+            'confirm_password' => $password,
+        ])->assertRedirect('/password-confirmed');
     }
 }

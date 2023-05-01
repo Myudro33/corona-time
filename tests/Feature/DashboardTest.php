@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use App\Models\Country;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class DashboardTest extends TestCase
@@ -45,12 +43,10 @@ class DashboardTest extends TestCase
     }
     public function test_artisan_command_should_sync_data_in_database(): void
     {
-        Http::fake();
         $this->artisan('app:sync-data')->assertSuccessful();
     }
     public function test_artisan_command_delete_reset_tokens(): void
     {
-        Http::fake();
         $this->artisan('auth:clear-resets')->assertSuccessful();
     }
 }
