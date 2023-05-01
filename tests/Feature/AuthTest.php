@@ -64,9 +64,6 @@ class AuthTest extends TestCase
     }
     public function test_login_form_should_give_us_error_when_user_does_not_exists()
     {
-        User::factory()->create([
-            'email' => 'test@gmail.com',
-        ]);
         $response = $this->post('/login', [
             'username' => 'nika@gmail.com',
             'password' => 'ddd',
@@ -106,7 +103,7 @@ class AuthTest extends TestCase
             ->assertRedirect('/confirmation')
             ->assertStatus(302);
     }
-    public function test_login_form_should_redirect_to_dashboard_page()
+    public function test_login_form_should_access_to_dashboard_page()
     {
         $user = User::factory()->create([
             'email_verified_at' => now(),

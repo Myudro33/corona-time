@@ -34,7 +34,7 @@ class ResetPasswordTest extends TestCase
             'token' => $token,
         ]);
         $this->post(route('password.email', ['token' => $token]), [
-            'email' => 'nika@gmail.com',
+            'email' => $email,
         ])->assertSessionHasErrors(['email']);
     }
     public function test_show_email_validation_error_if_input_is_empty(): void

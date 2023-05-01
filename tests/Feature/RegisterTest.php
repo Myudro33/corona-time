@@ -11,7 +11,7 @@ use Tests\TestCase;
 class RegisterTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_user_can_redirect_to_register_page()
+    public function test_register_page_is_accessible()
     {
         $response = $this->get(route('register.create'));
         $response->assertSuccessful();
@@ -40,11 +40,11 @@ class RegisterTest extends TestCase
     }
     public function test_auth_should_give_us_error_if_email_already_exists()
     {
-        User::factory()->create([
-            'email' => 'unique@gmail.com',
-        ]);
+        $user = User::factory()->create([
+             'email' => 'unique@gmail.com',
+         ]);
         $response = $this->post('/register', [
-            'email' => 'unique@gmail.com',
+            'email' => $user->email,
         ]);
         $response->assertSessionHasErrors(['email']);
     }
@@ -56,7 +56,7 @@ class RegisterTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['confirm_password']);
     }
-    public function test_user_can_register_if_sesion_has_no_errors()
+    public function test_user_can_auth_if_sesion_has_no_errors()
     {
         $response = $this->post('/register', [
             'username' => 'nika',
@@ -67,7 +67,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect('/confirmation');
     }
-    public function test_if_register_is_successfull_sent_email()
+    public function test_if_auth_is_successfull_sent_email()
     {
         Mail::fake();
         $response = $this->post('/register', [
