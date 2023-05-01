@@ -4,57 +4,27 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-    <div class="div"
-        style="padding: 20px; display: flex; flex-direction: column; align-items: center;justify-content: center">
-        <img src="https://i.ibb.co/T8gsJmy/landing.png" alt="img">
-        <h1 style="font-size: 25px;font-weight: 900; margin: 16px 0px; font-family: 'Inter', sans-serif;">{{__('email-confirm.email_body_title')}}</h1>
-        <p style="font-size: 16px;font-weight: 400; margin:16px 0px;font-family: 'Inter', sans-serif;">{{__('email-confirm.email_body_paragraph')}}</p>
-        <a style="background-color: #0FBA68;color: white; border-radius: 8px; display:flex;justify-content: center;align-items:center; font-weight: 900; margin-top: 40px;text-decoration:none;font-family: 'Inter', sans-serif;"
-            href="{{env('MAIL_BODY_URL')}}/verify-email/{{ $user->verification_token }}">
-            {{__('email-confirm.email_body_button')}}
-        </a>
-    </div>
+
+<body style="margin: 0; padding: 0;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+        style="max-width: 600px; margin-top: 100px;">
+        <tr>
+            <td align="center" bgcolor="#ffffff" style="padding: 40px 20px;">
+                <img src="https://i.ibb.co/T8gsJmy/landing.png" width="100%"
+                    style="max-width: 600px; margin-bottom: 20px;">
+                <h1
+                    style="font-size: 24px; font-weight: bold; color: black; margin-bottom: 10px; font-family: 'Inter', sans-serif;">
+                    {{ __('email-confirm.email_body_title') }}</h1>
+                <p
+                    style="font-size: 16px; color: black; line-height: 1.5; margin-bottom: 20px; font-family: 'Inter', sans-serif;">
+                    {{ __('email-confirm.email_body_paragraph') }}</p>
+                <p align="center" style="margin: 0; font-family: 'Inter', sans-serif;">
+                    <a href="{{ env('MAIL_BODY_URL') }}/verify-email/{{ $user->verification_token }}"
+                        style="display: inline-block; font-size: 16px; font-weight: bold; color: #ffffff; background-color: #0FBA68; padding: 10px 30px; border-radius: 5px; text-decoration: none;">{{ __('email-confirm.email_body_button') }}</a>
+                </p>
+            </td>
+        </tr>
+    </table>
 </body>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700;800;900&display=swap');
-
-    body {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center
-    }
-
-    a {
-        width: 392px;
-        height: 56px;
-    }
-
-    .div {
-        width: 520px;
-    }
-
-    img {
-        width: 100%;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .div {
-            width: 90%;
-            padding: 10px;
-        }
-
-        img {
-            width: 100%
-        }
-
-        a {
-            width: 100%;
-            height: 48px;
-        }
-    }
-</style>
 
 </html>
