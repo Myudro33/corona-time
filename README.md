@@ -57,6 +57,7 @@ cp .env.example .env
 
 5. Now you should provide .env file all the necessary environment variables:
 ```bash
+MAIL_BODY_URL=http://localhost:8000
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -75,6 +76,13 @@ MAIL_FROM_NAME="CoronaTime"
 ##
 
 ## Migration
+
+```sh
+php artisan key:generate
+```
+
+Which generates auth key.
+
 if you've completed getting started section, then just execute:
 ```bash
 php artisan migrate
