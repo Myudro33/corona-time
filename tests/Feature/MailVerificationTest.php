@@ -17,9 +17,8 @@ class MailVerificationTest extends TestCase
         $response = $this->get('/confirmation');
         $response->assertSuccessful()->assertViewIs('pages.confirmation');
     }
-    public function test_confirmed_page_should_render_after_email_submit_successfully(): void
+    public function test_email_verified_page_is_accessible(): void
     {
-        $this->withoutMiddleware();
         $response = $this->get('/confirmed');
         $response->assertSuccessful()->assertViewIs('pages.confirmed');
     }

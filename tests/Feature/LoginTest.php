@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class AuthTest extends TestCase
+class LoginTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
