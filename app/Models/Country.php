@@ -20,8 +20,7 @@ class Country extends Model
         $countries = Country::query();
         if (request('search')) {
             $countries = DB::table('countries')
-                ->where(DB::raw("json_extract(name, '$. " . "$lang')"), 'LIKE', '%' . request('search') . '%')
-                ->orWhere(DB::raw("json_extract(name, '$. " . "$lang')"), 'LIKE', '%' . ucfirst(request('search')) . '%');
+            ->where(DB::raw("json_extract(name, '$.{$lang}')"), 'LIKE', "%".request('search')."%");
         }
         if (request('sort')) {
             if (request('sort') == 'name') {
