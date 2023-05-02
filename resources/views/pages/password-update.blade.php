@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex flex-col md:items-center w-full h-screen xs:py-6 xs:px-4 md:py-14">
-        <x-language-switch class="md:left-9" />
+        <x-language-switch class="md:right-9 xs:right-5" />
         <img class="w-44 h-11" src="/assets/logo.svg" alt="logo">
         <form class="xs:h-screen xs:flex xs:flex-col xs:justify-between md:w-[392px] md:h-auto md:mt-36"
             action="{{ route('password.reset', $token) }}" method="post">
@@ -18,12 +18,14 @@
                 <input type="text" hidden name="token" id="token" value="{{ $token }}">
                 <x-input type='password' name='password' placeholder="{{ __('register.password_placeholder') }}" />
                 <x-error name="password" />
-                <label class="text-[#010414] font-bold text-base" for="confirm_password">
-                    @lang('reset.confirm_password')
-                </label>
-                <x-input type='password' name='confirm_password'
-                    placeholder="{{ __('register.confirm_password_placeholder') }}" />
-                <x-error name="confirm_password" />
+                <div class="md:mt-6 xs:mt-4">
+                    <label class="text-[#010414] font-bold text-base" for="confirm_password">
+                        @lang('reset.confirm_password')
+                    </label>
+                    <x-input type='password' name='confirm_password'
+                        placeholder="{{ __('register.confirm_password_placeholder') }}" />
+                    <x-error name="confirm_password" />
+                </div>
             </div>
             <x-button class="md:mt-14">@lang('reset.save')</x-button>
         </form>

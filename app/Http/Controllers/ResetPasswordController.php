@@ -33,13 +33,7 @@ class ResetPasswordController extends Controller
 
     public function reset_password(PasswordResetRequest $request): RedirectResponse
     {
-        $password_reset_required = DB::table('password_reset_tokens')
-            ->where('email', $request->validated()['email'])
-            ->where('token', $request->token)
-            ->first();
-        if (!$password_reset_required) {
-            return back();
-        }
+
         User::where('email', $request->email)->update(['password' => bcrypt($request->validated()['password'])]);
         return redirect('/password-confirmed');
     }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true"
->
+    xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true">
     <testsuites>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
@@ -15,17 +12,29 @@
     <coverage>
         <include>
             <directory suffix=".php">./app</directory>
+            <file>./app/Http/Middleware/SetLocale.php</file>
+
         </include>
+        <exclude>
+            <directory>./app/Http/Middleware</directory>
+            <directory>./app/Http/Requests</directory>
+            <directory>./app/Exceptions</directory>
+            <directory>./app/Providers</directory>
+            <directory>./app/Mail</directory>
+            <file>./app/Console/Kernel.php</file>
+            <file>./app/Http/Kernel.php</file>
+            <file>./app/Http/Controllers/Controller.php</file>
+        </exclude>
     </coverage>
     <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="BCRYPT_ROUNDS" value="4"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
-        <env name="MAIL_MAILER" value="array"/>
-        <env name="QUEUE_CONNECTION" value="sync"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="APP_ENV" value="testing" />
+        <env name="BCRYPT_ROUNDS" value="4" />
+        <env name="CACHE_DRIVER" value="array" />
+        <env name="DB_CONNECTION" value="sqlite" />
+        <env name="DB_DATABASE" value=":memory:" />
+        <env name="MAIL_MAILER" value="array" />
+        <env name="QUEUE_CONNECTION" value="sync" />
+        <env name="SESSION_DRIVER" value="array" />
+        <env name="TELESCOPE_ENABLED" value="false" />
     </php>
 </phpunit>
