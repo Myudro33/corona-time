@@ -16,19 +16,19 @@ class RegisterTest extends TestCase
         $response = $this->get(route('register.create'));
         $response->assertSuccessful();
     }
-    public function test_auth_should_give_us_errors_if_inputs_are_not_provided()
+    public function test_register_should_give_us_errors_if_inputs_are_not_provided()
     {
         $response = $this->post(route('register'));
         $response->assertSessionHasErrors(['username', 'email', 'password', 'confirm_password']);
     }
-    public function test_auth_should_give_us_error_if_email_is_not_valid()
+    public function test_register_should_give_us_error_if_email_is_not_valid()
     {
         $response = $this->post(route('register'), [
             'email' => 'awjdklawjd',
         ]);
         $response->assertSessionHasErrors(['email']);
     }
-    public function test_auth_should_give_us_error_if_username_already_exists()
+    public function test_register_should_give_us_error_if_username_already_exists()
     {
         $user = User::factory()->create([
             'username' => 'unique',
@@ -38,7 +38,7 @@ class RegisterTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['username']);
     }
-    public function test_auth_should_give_us_error_if_email_already_exists()
+    public function test_register_should_give_us_error_if_email_already_exists()
     {
         $user = User::factory()->create([
              'email' => 'unique@gmail.com',
@@ -48,7 +48,7 @@ class RegisterTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['email']);
     }
-    public function test_auth_should_give_us_error_if_passwords_do_not_match()
+    public function test_register_should_give_us_error_if_passwords_do_not_match()
     {
         $response = $this->post('/register', [
             'password' => 'nika',
@@ -56,7 +56,7 @@ class RegisterTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['confirm_password']);
     }
-    public function test_user_can_auth_if_sesion_has_no_errors()
+    public function test_user_can_register_if_sesion_has_no_errors()
     {
         $response = $this->post('/register', [
             'username' => 'nika',
@@ -67,7 +67,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect('/confirmation');
     }
-    public function test_if_auth_is_successfull_sent_email()
+    public function test_if_register_is_successfull_sent_email()
     {
         Mail::fake();
         $response = $this->post('/register', [
