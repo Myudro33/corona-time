@@ -10,7 +10,7 @@ use Tests\TestCase;
 class DashboardTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_authenticated_user_can_redirect_dashboard_page(): void
+    public function test_authenticated_user_can_access_dashboard_page(): void
     {
         $user = User::factory()->create();
         Country::factory(10)->create();
@@ -18,7 +18,7 @@ class DashboardTest extends TestCase
         $response->assertViewIs('pages.worldwide');
         $response->assertSuccessful();
     }
-    public function test_user_can_redirect_country_page(): void
+    public function test_user_can_access_country_page(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/bycountry');

@@ -16,7 +16,7 @@ class RegisterTest extends TestCase
         $response = $this->get(route('register.create'));
         $response->assertSuccessful();
     }
-    public function test_auth_register_should_give_us_errors_if_inputs_are_not_provided()
+    public function test_auth_should_give_us_errors_if_inputs_are_not_provided()
     {
         $response = $this->post(route('register'));
         $response->assertSessionHasErrors(['username', 'email', 'password', 'confirm_password']);
