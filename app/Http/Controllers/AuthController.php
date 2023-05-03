@@ -16,11 +16,6 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    // login
-    public function view(): View
-    {
-        return view('pages.login');
-    }
     public function login(UserLoginRequest $request): RedirectResponse
     {
         $rememberDevice = $request->has('remember') ? true : false;
@@ -49,8 +44,6 @@ class AuthController extends Controller
         auth()->logout();
         return redirect('/login');
     }
-
-    // register
 
     public function create(): View
     {

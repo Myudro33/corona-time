@@ -13,10 +13,6 @@ use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
-    public function index(): View
-    {
-        return view('pages.forgot_password');
-    }
     public function show($token): View
     {
         return view('pages.password-update', [
@@ -25,10 +21,6 @@ class ResetPasswordController extends Controller
                 ->where('token', $token)
                 ->first()->email,
         ]);
-    }
-    public function view(): View
-    {
-        return view('pages.password-update-confirmed');
     }
 
     public function reset_password(PasswordResetRequest $request): RedirectResponse

@@ -8,15 +8,6 @@ use Illuminate\Http\RedirectResponse;
 
 class VerificationController extends Controller
 {
-    public function view(): View
-    {
-        return view('pages.confirmation');
-    }
-    public function show(): View
-    {
-        return view('pages.confirmed');
-    }
-
     public function verifyEmail($token): RedirectResponse
     {
         // Find the user with the given token

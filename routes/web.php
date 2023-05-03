@@ -7,12 +7,10 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
-// language
 Route::get('/locale/{lang}', [LanguageController::class, 'setLang']);
 
-// user
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/login', 'view')->name('login.view')->middleware('guest');
+    Route::view('/login', 'pages.login')->name('login.view')->middleware('guest');
     Route::post('/login', 'login')->name('login')->middleware('verify');
     Route::get('/register', 'create')->name('register.create')->middleware('guest');
     Route::post('/register', 'register')->name('register')->middleware('guest');
@@ -20,14 +18,14 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::controller(VerificationController::class)->group(function () {
     Route::get('/verify-email/{token}', 'verifyEmail')->name('verification.verify');
-    Route::get('/confirmation', 'view')->name('confirmation')->name('verification.notice');
-    Route::get('/confirmed', 'show')->name('confirmed.show');
+    Route::view('/confirmation', 'pages.confirmation')->name('confirmation')->name('verification.notice');
+    Route::view('/confirmed', 'pages.confirmed')->name('confirmed.show');
 });
 
 Route::controller(ResetPasswordController::class)->group(function () {
-    Route::get('/forgot-password', 'index')->name('forgot-password.index');
+    Route::view('/forgot-password', 'pages.forgot_password')->name('forgot-password.index');
     Route::get('/password-update/{token}', 'show')->name('password-update.show');
-    Route::get('/password-confirmed', 'view')->name('password-confirmed.view');
+    Route::view('/password-confirmed', 'pages.password-update-confirmed')->name('password-confirmed.view');
     Route::post('/password-update/{token}', 'reset_password')->name('password.reset');
     Route::post('/forgot-password', 'send_reset_password_mail')->name('password.email');
 });
