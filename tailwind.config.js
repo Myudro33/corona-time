@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       screens: {
         'xs': '375px',
+        'lg': '1025px'
         // => @media (min-width: 375px) { ... }
       },
       boxShadow: {

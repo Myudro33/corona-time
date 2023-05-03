@@ -2,7 +2,7 @@
 
 
 
-<div {{ $attributes(['class' => 'md:h-[255px] md:w-[392px] flex flex-col items-center rounded-2xl']) }}
+<div {{ $attributes(['class' => 'lg:h-[255px] lg:w-[30%] flex flex-col items-center rounded-2xl']) }}
     style="background-color: {{ $background }}">
     <img class="w-[90px] h-[64px] md:mt-10 xs:mt-2" src="{{ $image }}" alt="">
     <h1 class="mt-6 font-medium md:text-xl xs:text-base text-[#010414]">{{ $title }}</h1>
