@@ -17,17 +17,17 @@ Route::controller(AuthController::class)->group(function () {
 	Route::post('/logout', 'logout')->name('logout')->middleware('auth');
 });
 Route::controller(VerificationController::class)->group(function () {
-	Route::get('/verify-email/{token}', 'verifyEmail')->name('verification.verify');
-	Route::view('/confirmation', 'pages.confirmation')->name('confirmation')->name('verification.notice');
-	Route::view('/confirmed', 'pages.confirmed')->name('confirmed.show');
+	Route::get('/verify-email/{token}', 'verifyEmail')->name('verification.verify')->middleware('guest');
+	Route::view('/confirmation', 'pages.confirmation')->name('confirmation')->middleware('guest');
+	Route::view('/confirmed', 'pages.confirmed')->name('confirmed.show')->middleware('guest');
 });
 
 Route::controller(ResetPasswordController::class)->group(function () {
-	Route::view('/forgot-password', 'pages.forgot_password')->name('forgot-password.index');
-	Route::get('/password-update/{token}', 'show')->name('password-update.show');
-	Route::view('/password-confirmed', 'pages.password-update-confirmed')->name('password-confirmed.view');
-	Route::post('/password-update/{token}', 'reset_password')->name('password.reset');
-	Route::post('/forgot-password', 'send_reset_password_mail')->name('password.email');
+	Route::view('/forgot-password', 'pages.forgot_password')->name('forgot-password.index')->middleware('guest');
+	Route::get('/password-update/{token}', 'show')->name('password-update.show')->middleware('guest');
+	Route::view('/password-confirmed', 'pages.password-update-confirmed')->name('password-confirmed.view')->middleware('guest');
+	Route::post('/password-update/{token}', 'reset_password')->name('password.reset')->middleware('guest');
+	Route::post('/forgot-password', 'send_reset_password_mail')->name('password.email')->middleware('guest');
 });
 
 Route::controller(DashboardController::class)->group(function () {
