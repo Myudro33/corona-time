@@ -43,19 +43,9 @@ class AuthController extends Controller
         auth()->logout();
         return redirect('/login');
     }
-
-    public function create(): View
-    {
-        return view('pages.register');
-    }
     public function register(UserRegisterRequest $request): RedirectResponse
     {
-        $user = new User();
-        $user->username = $request->validated()['username'];
-        $user->email = $request->validated()['email'];
-        $user->password = bcrypt($request->validated()['password']);
-        $user->verification_token = Str::random(40);
-        $user->save();
+        $user = User::create($request->validated());
         Mail::to($user->email)
             ->locale(Session::get('locale'))
             ->send(new VerifyEmail($user));
