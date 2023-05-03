@@ -12,4 +12,9 @@ class PasswordUpdateRequest extends FormRequest
 			'email'=> 'required|email|exists:users,email|unique:password_reset_tokens,email',
 		];
 	}
+
+	public function messages()
+	{
+		return ['unique' => __('email-password.unique')];
+	}
 }
