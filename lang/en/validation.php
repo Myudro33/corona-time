@@ -9,5 +9,6 @@ return [
     ],
     'required' => 'The :attribute field is required.',
     'same' => 'The :attribute field must match :other.',
-    'unique' => 'The :attribute has already been taken.',
+    'unique' => 'The :attribute has already exists.',
+    'confirmed' => 'The :attribute field confirmation does not match.',
 ];
