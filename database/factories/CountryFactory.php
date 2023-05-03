@@ -18,7 +18,6 @@ class CountryFactory extends Factory
 	{
 		$fakerKa = \Faker\Factory::create('ka_GE');
 		return [
-			'country'  => $this->faker->country(),
 			'code'     => $this->faker->countryCode(),
 			'confirmed'=> $this->faker->numberBetween(0, 500000),
 			'recovered'=> $this->faker->numberBetween(0, 500000),

@@ -27,10 +27,10 @@ class SyncData extends Command
 	 */
 	public function handle()
 	{
-		$urlCountryies = 'https://devtest.ge/countries';
+		$urlCountries = 'https://devtest.ge/countries';
 		$url = 'https://devtest.ge/get-country-statistics';
 		$storage = [];
-		$countries = Http::get($urlCountryies);
+		$countries = Http::get($urlCountries);
 		$countries_response = json_decode($countries->body());
 		if ($countries_response !== null) {
 			foreach ($countries_response as $country) {
@@ -43,8 +43,6 @@ class SyncData extends Command
 		foreach ($storage as $data) {
 			$data = (array) $data;
 			$country = Country::firstOrNew(['id' => $data['id']]);
-			$country->code = $data['code'];
-			$country->country = $data['country'];
 			$country->confirmed = $data['confirmed'];
 			$country->recovered = $data['recovered'];
 			$country->critical = $data['critical'];
