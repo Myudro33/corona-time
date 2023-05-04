@@ -22,9 +22,9 @@
                     <label class="text-[#010414] font-bold text-base" for="confirm_password">
                         @lang('reset.confirm_password')
                     </label>
-                    <x-input type='password' name='confirm_password'
+                    <x-input id="password" type='password' name='password_confirmation'
                         placeholder="{{ __('register.confirm_password_placeholder') }}" />
-                    <x-error name="confirm_password" />
+                    <x-error name="password_confirmation" />
                 </div>
             </div>
             <x-button class="md:mt-14">@lang('reset.save')</x-button>

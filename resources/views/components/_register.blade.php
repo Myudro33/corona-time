@@ -16,11 +16,11 @@
     </label>
     <x-input type='password' name='password' placeholder="{{__('register.password_placeholder')}}" />
     <x-error name="password" />
-        <label for="confirm_password" class="text-[#010414] font-bold text-base mt-6">
+        <label for="password_confirmation" class="text-[#010414] font-bold text-base mt-6">
         @lang('register.confirm_password')
     </label>
-    <x-input type='password' name='confirm_password' placeholder="{{__('register.confirm_password_placeholder')}}" />
-    <x-error name="confirm_password" />
+    <x-input id="password" type='password' name='password_confirmation' placeholder="{{__('register.confirm_password_placeholder')}}" />
+    <x-error name="password_confirmation" />
         <x-button class="md:mt-6 my-6" >@lang('register.sign_up')</x-button>
     <div class="w-full flex justify-center">
         <span class="text-[#808189] font-normal">@lang('register.already_have_account')<a
