@@ -10,19 +10,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SetLocale
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
-    {
-        if (Session::get('locale') != null) {
-            App::setLocale(Session::get('locale'));
-        } else {
-            Session::put('locale', 'en');
-            App::setLocale(Session::get('locale'));
-        }
-        return $next($request);
-    }
+	/**
+	 * Handle an incoming request.
+	 *
+	 * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+	 */
+	public function handle(Request $request, Closure $next): Response
+	{
+		if (Session::get('locale') != null) {
+			App::setLocale(Session::get('locale'));
+		} else {
+			Session::put('locale', 'en');
+			App::setLocale(Session::get('locale'));
+		}
+		return $next($request);
+	}
 }

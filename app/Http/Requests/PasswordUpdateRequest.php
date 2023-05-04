@@ -6,11 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordUpdateRequest extends FormRequest
 {
+	public function rules(): array
+	{
+		return [
+			'email'=> 'required|email|exists:users,email|unique:password_reset_tokens,email',
+		];
+	}
 
-    public function rules(): array
-    {
-        return [
-            'email'=>'required|email|exists:users,email'
-        ];
-    }
+	public function messages()
+	{
+		return ['unique' => __('email-password.unique')];
+	}
 }
